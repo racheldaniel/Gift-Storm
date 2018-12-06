@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import "./App.css"
 import Landing from "./landing/Landing"
 import Friends from "./friends/Friends"
+import FriendDetail from "./../components/detail/FriendDetail"
 
 
 export default class App extends Component {
@@ -19,6 +20,10 @@ export default class App extends Component {
 
           return <Friends {...props}
 
+          />
+        }} />
+        <Route path="/friends/1" render={(props) => {
+          return <FriendDetail {...props}
           />
         }} />
       </Switch>

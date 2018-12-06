@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Col , Button} from 'reactstrap';
+import {Link} from "react-router-dom"
 import anniversary from "./../../images/anniversary.png"
 import birthday from "./../../images/birthday.png"
 import christmas from "./../../images/christmas.png"
 import mothers from "./../../images/mothers.png"
+import FriendDetail from "./../detail/FriendDetail"
 
 
 export default class FriendItem extends Component {
@@ -33,8 +35,11 @@ export default class FriendItem extends Component {
 
             </Col>
             <Col xs={2} className="text-center" >
-              <Button className="btn-sm">Details</Button>
+              {/* <Button className="btn-sm" onClick={()=> {
 
+                  return FriendDetail
+              }}>Details</Button> */}
+              <Link className="nav-link" to={`/friends/1`}>Details</Link>
             </Col>
 
           </Row>

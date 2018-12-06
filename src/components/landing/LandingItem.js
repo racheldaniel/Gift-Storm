@@ -3,6 +3,7 @@ import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Col } from
 import anniversary from "./../../images/anniversary.png"
 import complete from "./../../images/complete.png"
 import christmas from "./../../images/christmas.png"
+import inProgress from "./../../images/inProgress.png"
 
 export default class LandingItem extends Component {
   render() {
@@ -22,7 +23,7 @@ export default class LandingItem extends Component {
               <ListGroupItemHeading>12/25</ListGroupItemHeading>
             </Col>
             <Col xs={2} className="text-center my-auto">
-              <img src={complete} alt="Complete" className="img-thumbnail" />
+              <img src={inProgress} alt="inProgress" className="img-thumbnail" />
             </Col>
           </Row>
 
