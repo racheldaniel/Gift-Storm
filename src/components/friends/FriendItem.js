@@ -5,7 +5,7 @@ import anniversary from "./../../images/anniversary.png"
 import birthday from "./../../images/birthday.png"
 import christmas from "./../../images/christmas.png"
 import mothers from "./../../images/mothers.png"
-import FriendDetail from "./../detail/FriendDetail"
+
 
 
 export default class FriendItem extends Component {

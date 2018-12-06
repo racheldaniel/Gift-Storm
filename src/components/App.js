@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import "./App.css"
 import Landing from "./landing/Landing"
 import Friends from "./friends/Friends"
-import FriendDetail from "./../components/detail/FriendDetail"
+import FriendDetail from "./detail/Detail"
 
 
 export default class App extends Component {
