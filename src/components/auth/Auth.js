@@ -11,13 +11,17 @@ import userSession from "../../modules/User/UserSession"
 export default class Auth extends Component {
 
   state = {
-    auth: false
+    auth: false,
+    currentUser: ""
   }
 
   loginSuccessful = () => {
-     if (userSession.getUser()){
-      this.setState({auth: true})
-     }
+    return new Promise((resolve)=>{
+      const currentUser = userSession.getUser()
+      if (currentUser){
+       this.setState({auth: true, currentUser: currentUser }, ()=> resolve())
+      }
+    })
 
   }
 
@@ -31,7 +35,7 @@ export default class Auth extends Component {
         {
           (this.state.auth === false)
             ? <Login auth={this.state.auth} loginSuccessful={this.loginSuccessful}/>
-            : <GiftStorm auth={this.state.auth}/>
+            : <GiftStorm auth={this.state.auth} currentUser={this.state.currentUser}/>
         }
       </React.Fragment>
 
