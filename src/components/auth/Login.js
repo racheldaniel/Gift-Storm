@@ -61,6 +61,8 @@ export default class Login extends Component {
         <Register
           toggle={this.toggle}
           modal={this.state.modal}
+          auth={this.props.auth}
+          loginSuccessful={this.props.loginSuccessful}
         />
 
       </React.Fragment>
