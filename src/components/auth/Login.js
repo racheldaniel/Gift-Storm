@@ -11,17 +11,21 @@ export default class Login extends Component {
     password: "",
     modal: false
   }
+
   toggle = (e) => {
     this.setState({
       modal: !this.state.modal,
     })
   }
+
+   //function uses ids of form fields as keys, creates an object with input as value, and sets state
   handleFieldChange = e => {
     const stateToChange = {}
     stateToChange[e.target.id] = e.target.value
     this.setState(stateToChange)
   }
 
+  //function creates an object out of entered email and password, validates using validate module, then calls function from Auth component that sets state
   submitLogin = (e) => {
     e.preventDefault()
     let obj = {

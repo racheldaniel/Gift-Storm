@@ -42,6 +42,7 @@ export default class FriendForm extends Component {
     }
   }
 
+  //function iterates over the selected user occasions in state, creates an object out of each with the user id, and posts to the user-occasions table
   postUserOccasions = () => {
     const currentUser = userSession.getUser()
     this.state.userOccasions.forEach((occasion) => {

@@ -1,3 +1,6 @@
+/*
+  Purpose: module holds functions for getting, setting and clearing session storage
+*/
 
 const userSession = {
   logInUser(id) {
