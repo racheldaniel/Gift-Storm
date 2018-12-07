@@ -1,0 +1,10 @@
+.loginForm {
+  max-width: 30%;
+  margin: 5em auto;
+  background-color: #eef0f2;
+  padding: 10px
+}
+
+.registerButtonDiv {
+  margin: 0 auto
+}
