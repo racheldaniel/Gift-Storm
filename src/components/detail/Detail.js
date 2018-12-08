@@ -15,7 +15,7 @@ import API from "./../../modules/API/API"
 export default class FriendDetail extends Component {
   state = {
     friendOccGifts: [],
-    occasions: [],
+    userOccasions: [],
     friendDetail: [],
     isLoaded: false
   }
@@ -32,13 +32,14 @@ export default class FriendDetail extends Component {
       .then((friendDetail) => this.setState({ friendDetail: friendDetail }))
   }
 
-  findOccasions = () => {
-    return API.getData(`occasions`)
-      .then((occasions) => this.setState({ occasions: occasions }))
+  //this function will get all user occasions expanded with the occasion details , then set state in this component
+  getUserOccasions = (currentUser) => {
+    return API.getData(`user_occasions?userId=${currentUser}&_expand=occasion`)
+      .then((userOccasions) => this.setState({ userOccasions: userOccasions }))
   }
 
   componentDidMount() {
-    this.findOccasions()
+    this.getUserOccasions(this.props.currentUser)
       .then(() => this.findFriend())
       .then(() => this.findFriendGifts())
   }
@@ -93,7 +94,17 @@ export default class FriendDetail extends Component {
               </CardDeck>
               <ListGroup className="mt-5">
                 <h3 className="text-center text-light">Celebrations</h3>
-                <DetailCelebrations />
+                {
+                  this.state.friendOccGifts.map(friendOcc =>
+                    <DetailCelebrations
+                      friend={friend}
+                      friendOcc={friendOcc}
+                      friendDetail={this.state.friendDetail}
+                      userOccasions={this.state.userOccasions}
+                      friendOccGifts={this.state.friendOccGifts}
+                    />
+                  )
+                }
               </ListGroup>
             </Container>
             : null
