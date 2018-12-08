@@ -22,7 +22,7 @@ export default class FriendDetail extends Component {
   //function fetches this friend's occasions and corresponding gifts with user-occasion entity embedded. This can be used to find image from occasion array
   findFriendGifts = () => {
     const friend = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)) || {}
-    return API.getData(`friend_occasions?friendId=${friend.id}&_embed=gifts&_expand=user_occasion`)
+    return API.getData(`friend_occasions?friendId=${friend.id}&_embed=gifts`)
       .then((friendOccGifts) => this.setState({ friendOccGifts: friendOccGifts, isLoaded: true }))
   }
 
