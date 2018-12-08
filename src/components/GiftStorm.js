@@ -8,7 +8,7 @@ export default class GiftStorm extends Component {
       return (
           <React.Fragment>
               <NavBar />
-              <App />
+              <App currentUser={this.props.currentUser}/>
           </React.Fragment>
       )
   }

@@ -1,46 +1,36 @@
 import React, { Component } from 'react';
-import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Col , Button} from 'reactstrap';
-import {Link} from "react-router-dom"
-import anniversary from "./../../images/anniversary.png"
-import birthday from "./../../images/birthday.png"
-import christmas from "./../../images/christmas.png"
-import mothers from "./../../images/mothers.png"
+import { ListGroupItem, Row, Col } from 'reactstrap';
+import { Link } from "react-router-dom"
+import FriendOccasions from "./FriendOccasions"
+
 
 
 
 export default class FriendItem extends Component {
+
   render() {
     return (
       <React.Fragment>
         <ListGroupItem className="friendListItem">
           <Row>
-            <Col xs={2} className=" d-flex align-items-center text-center">
-              <h3>Hannah </h3>
+            <Col xs={10} className=" d-flex align-items-center text-center">
+              <h3>{this.props.friend.name}</h3>
 
             </Col>
-            <Col xs={2} className="text-center" >
-              <img src={anniversary} alt="anniversary" className="img-thumbnail" />
-              <ListGroupItemText>12/31</ListGroupItemText>
-            </Col>
-            <Col xs={2} className="text-center" >
-              <img src={birthday} alt="birthday"  className="img-thumbnail" />
-              <ListGroupItemText>5/10</ListGroupItemText>
-            </Col>
-            <Col xs={2} className="text-center" >
-              <img src={christmas} alt="christmas" className="img-thumbnail"  />
 
-            </Col>
             <Col xs={2} className="text-center" >
-              <img src={mothers} alt="mothers" className="img-thumbnail" />
-
+              <Link className="nav-link" to={`/friends/${this.props.friend.id}`}>Details</Link>
             </Col>
-            <Col xs={2} className="text-center" >
-              {/* <Button className="btn-sm" onClick={()=> {
-
-                  return FriendDetail
-              }}>Details</Button> */}
-              <Link className="nav-link" to={`/friends/1`}>Details</Link>
-            </Col>
+          </Row>
+          <Row >
+            {
+              this.props.friend.friend_occasions.map(friend_occasion =>
+                <FriendOccasions key={friend_occasion.id}
+                  friend_occasion={friend_occasion}
+                  friend={this.props.friend}
+                  friendOccasions={this.props.friendOccasions}
+                  userOccasions={this.props.userOccasions} />)
+            }
 
           </Row>
 

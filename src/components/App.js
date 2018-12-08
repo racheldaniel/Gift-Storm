@@ -13,17 +13,18 @@ export default class App extends Component {
         <Route exact path="/" render={(props) => {
 
           return <Landing {...props}
-
+          currentUser={this.props.currentUser}
           />
         }} />
         <Route exact path="/friends" render={(props) => {
 
           return <Friends {...props}
-
+          currentUser={this.props.currentUser}
           />
         }} />
-        <Route path="/friends/1" render={(props) => {
+        <Route path="/friends/:friendId(\d+)" render={(props) => {
           return <FriendDetail {...props}
+          currentUser={this.props.currentUser}
           />
         }} />
       </Switch>
