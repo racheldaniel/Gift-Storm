@@ -1,19 +1,19 @@
 /*! `Custom` Bootstrap 4 theme */
 @import url(https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css);
-@import url(https://fonts.googleapis.com/css?family=Comfortaa:200,300,400,700);
-$font-family-base:Comfortaa;
-@import url(https://fonts.googleapis.com/css?family=Voltaire:200,300,400,700);
-$headings-font-family:Voltaire;
+@import url(https://fonts.googleapis.com/css?family=Quattrocento:200,300,400,700);
+$font-family-base:Quattrocento;
+@import url(https://fonts.googleapis.com/css?family=Kaushan+Script:200,300,400,700);
+$headings-font-family:Kaushan Script;
 
 
 
-$primary:#2F414A;
+$primary:#01172F;
 $secondary:#F47B53;
 $success:#2C1230;
 $danger:#35605A;
-$info:#8EB8E5;
-$warning:#847996;
-$light:#eef0f2;
+$info:#FFFDF6;
+$warning:#0D4554;
+$light:#BFACAA;
 $dark:#000633;
 @import "../node_modules/bootstrap/scss/bootstrap"
 

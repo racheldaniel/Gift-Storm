@@ -1,0 +1,9 @@
+#navBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  border: 1px solid #01172F
+
+
+}

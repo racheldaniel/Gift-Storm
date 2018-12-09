@@ -41,8 +41,8 @@ export default class Friends extends Component {
         {
           (this.state.isLoaded === true)
             ?  <Container>
-            <h1 className="text-center text-light my-4">Your Friends</h1>
-            <div className="text-light text-center mt-4" ><Button className="text-light" color="primary" id="addEvent" onClick={(e) => {
+            <h1 className="text-center text-info my-4">Your Friends</h1>
+            <div className="text-info text-center mt-4" ><Button className="text-info" color="primary" id="addEvent" onClick={(e) => {
               this.toggle()
             }}>Add A Friend</Button></div>
             <FriendForm
