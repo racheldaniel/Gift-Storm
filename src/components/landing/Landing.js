@@ -7,7 +7,7 @@ export default class Landing extends Component{
   render () {
     return(
       <Container>
-        <h1 className="text-center text-light my-5">Upcoming Celebrations</h1>
+        <h1 className="text-center text-info my-5">Upcoming Celebrations</h1>
         <LandingList/>
 
       </Container>

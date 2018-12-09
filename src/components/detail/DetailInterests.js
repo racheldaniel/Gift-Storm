@@ -6,7 +6,7 @@ export default class DetailInterests extends Component {
   render() {
     return (
       <React.Fragment>
-        <Badge className="mx-3 my-3 pill" color="warning" pill>{this.props.interest}</Badge>
+        <Badge className="mx-3 my-3 pill" color="primary" pill>{this.props.interest}</Badge>
       </React.Fragment>
 
     )

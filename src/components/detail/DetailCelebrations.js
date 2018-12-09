@@ -13,10 +13,10 @@ export default class DetailCelebrations extends Component {
 
     return (
       <React.Fragment>
-        <ListGroupItem className="landingListItem">
+        <ListGroupItem className="landingListItem" >
           <Row>
             <Col xs={1} className="d-flex align-items-center">
-              <img src={userOcc.occasion.img} alt={userOcc.occasion.name} className="img-thumbnail" />
+              <img src={userOcc.occasion.img} alt={userOcc.occasion.name} />
             </Col>
             <Col xs={3} className="d-flex align-items-center text-center">
               {
@@ -50,7 +50,7 @@ export default class DetailCelebrations extends Component {
               </FormGroup>
             </Col>
             <Col xs={2} className=" my-auto text-center">
-              <img src={complete} alt="Complete" className="img-thumbnail" />
+              <img src={complete} alt="Complete" />
             </Col>
           </Row>
         </ListGroupItem>

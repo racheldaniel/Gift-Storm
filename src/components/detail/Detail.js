@@ -52,11 +52,11 @@ export default class FriendDetail extends Component {
         {
           (this.state.isLoaded === true)
             ? <Container>
-              <h1 className="text-center text-light my-5">{`${friend.name}'s Giftstorm`}</h1>
+              <h1 className="text-center text-info my-5">{`${friend.name}'s Gift List`}</h1>
               <CardDeck>
                 <Card className="detailCard">
                   <CardBody>
-                    <CardHeader className="detailCard--Heading text-center">Interests</CardHeader>
+                    <CardHeader className="detailCard--Heading text-center" id="interest--head"><h2>Interests</h2></CardHeader>
                     <CardText className=" d-flex align-items-center flex-wrap text-center">
                       {
                         this.state.friendDetail[0].interests.map(interest =>
@@ -75,9 +75,9 @@ export default class FriendDetail extends Component {
 
                 <Card className="detailCard">
                   <CardBody>
-                    <CardHeader className="detailCard--Heading text-center">Gift Ideas</CardHeader>
+                    <CardHeader className="detailCard--Heading text-center" id="gift--head"><h2>Gift Ideas</h2></CardHeader>
                     <CardText className=" d-flex align-items-center flex-wrap">
-                      <ListGroup className="detailCard--ul">
+                      <ListGroup className="detailCard--ul ">
                         {
                           this.state.friendDetail[0].giftIdeas.map(giftIdea =>
                             <DetailGifts
@@ -93,7 +93,7 @@ export default class FriendDetail extends Component {
                 </Card>
               </CardDeck>
               <ListGroup className="mt-5">
-                <h3 className="text-center text-light">Celebrations</h3>
+                <h3 className="text-center text-info">Celebrations</h3>
                 {
                   this.state.friendOccGifts.map(friendOcc =>
                     <DetailCelebrations

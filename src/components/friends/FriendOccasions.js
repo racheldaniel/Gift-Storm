@@ -16,7 +16,7 @@ export default class FriendOccasions extends Component {
 
           alt={this.props.userOccasions.find(occ =>
             occ.occasionId === this.props.friend_occasion.user_occasionId
-          ).occasion.name} className="img-thumbnail" />
+          ).occasion.name} />
 
           <ListGroupItemText>{this.props.friend_occasion.date}</ListGroupItemText>
         </Col>

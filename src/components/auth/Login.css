@@ -1,8 +1,10 @@
 .loginForm {
   max-width: 30%;
   margin: 5em auto;
-  background-color: #eef0f2;
-  padding: 10px
+  background-color: #BFACAA;
+  padding: 10px;
+  border: 2px solid #01172F;
+  opacity: .9;
 }
 
 .registerButtonDiv {

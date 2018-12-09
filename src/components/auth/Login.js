@@ -45,8 +45,8 @@ export default class Login extends Component {
     return (
       <React.Fragment>
         <Form className="loginForm" onSubmit={(e) => this.submitLogin(e)}>
-          <h1 className="text-center">Welcome to Giftstorm!</h1>
-          <h5 className="text-center">Please Login to Begin Brainstorming</h5>
+          <h1 className="text-center">Welcome to GiftStorm!</h1>
+          <p className="text-center">~Please Login to Begin Brainstorming~</p>
           <FormGroup>
             <Label for="exampleEmail">Email</Label>
             <Input type="email" name="email" id="email" placeholder="Email" onChange={this.handleFieldChange}/>
@@ -55,10 +55,10 @@ export default class Login extends Component {
             <Label for="examplePassword">Password</Label>
             <Input type="password" name="password" id="password" placeholder="Password" onChange={this.handleFieldChange} />
           </FormGroup>
-          <Button>Submit</Button>
+          <Button color="primary">Submit</Button>
         </Form>
         <div className="text-center registerButtonDiv">
-          <Button onClick={(e) => {
+          <Button color="primary" onClick={(e) => {
             this.toggle()
           }}>New Here? Register Now!</Button>
         </div>

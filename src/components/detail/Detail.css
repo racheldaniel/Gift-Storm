@@ -1,13 +1,14 @@
 .detailCard--Heading {
   padding: 10px;
   font-size: 1.5em;
-  margin-bottom: 5px
+  margin-bottom: 5px;
+  color: #FFFDF6
 
 }
 
 .detailCard {
-  background-color: #eef0f2;
-  border: 3px solid #847996
+  background-color: #BFACAA;
+  border: 3px solid #01172F
 }
 
 .pill {
@@ -23,7 +24,15 @@
 }
 
 .detailCard--li {
-  background-color: #847996;
+  background-color: #01172F;
   margin: 2px;
-  color: #eef0f2
+  color: #BFACAA
+}
+
+.landingListItem {
+  background-color: #BFACAA
+}
+
+#interest--head, #gift--head {
+  opacity: 1
 }
