@@ -7,7 +7,7 @@ export default class FriendForm extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}>
+      <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className} >
         <form
         // onSubmit={(e) => {
         //   e.preventDefault()
@@ -16,7 +16,7 @@ export default class FriendForm extends Component {
         // }
         >
           <ModalHeader toggle={this.props.toggle}>Add a Friend</ModalHeader>
-          <ModalBody>
+          <ModalBody id="addFriendForm">
             <FormGroup>
               <Label for="name">Name</Label>
               <Input type="text" name="eventName" id="name" /*onChange={this.props.handleFieldChange}*/ required /*defaultValue={this.props.name}*/ />
@@ -29,8 +29,8 @@ export default class FriendForm extends Component {
 
           </ModalBody>
           <ModalFooter>
-            <Button color="success" /*onSubmit={() => { }} */>Save</Button>
-            <Button color="secondary" onClick={(e) => {
+            <Button color="primary" /*onSubmit={() => { }} */>Save</Button>
+            <Button color="light" onClick={(e) => {
               this.props.toggle()
             }}
             >Cancel</Button>
