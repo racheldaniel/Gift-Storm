@@ -36,6 +36,7 @@ export default class DetailCelebrations extends Component {
                   {
                   this.props.friendOcc.gifts.map((gift) =>
                     <DetailPurchased
+                      key={gift.id}
                       gift={gift}
                     />
                   )

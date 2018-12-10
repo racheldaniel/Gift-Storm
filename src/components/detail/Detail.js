@@ -36,6 +36,7 @@ export default class FriendDetail extends Component {
       .then((friendOccGifts) => this.setState({ friendOccGifts: friendOccGifts, isLoaded: true }))
   }
 
+  //function fetches friend data
   findFriend = () => {
     const friend = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)) || {}
     return API.getData(`friends?id=${friend.id}`)
@@ -65,6 +66,10 @@ export default class FriendDetail extends Component {
 
   saveFriendGift = (obj) => {
     return API.saveData(`friend_giftIdeas`, obj)
+  }
+
+  savePurchasedGift = (obj) => {
+    return API.saveData(`gifts`, obj)
   }
 
   deleteFriendInterest = (id) => {
@@ -184,7 +189,7 @@ export default class FriendDetail extends Component {
                 {
                   this.state.friendOccGifts.map(friendOcc =>
                     <DetailCelebrations
-                      key={friend.id}
+                      key={friendOcc.id}
                       friend={friend}
                       friendOcc={friendOcc}
                       friendDetail={this.state.friendDetail}
@@ -206,13 +211,19 @@ export default class FriendDetail extends Component {
         />
         <DetailGiftForm
           friend={friend}
+          userOccasions={this.state.userOccasions}
+          friendOccGifts={this.state.friendOccGifts}
           toggleGift={this.toggleGift}
           giftModal={this.state.giftModal}
           saveFriendGift={this.saveFriendGift}
           findFriendGiftIdeas={this.findFriendGiftIdeas}
+          savePurchasedGift={this.savePurchasedGift}
+          findFriendGifts={this.findFriendGifts}
         />
         <EditInterestForm
           friend={friend}
+          userOccasions={this.state.userOccasions}
+          friendOccGifts={this.state.friendOccGifts}
           toggleEditInterest={this.toggleEditInterest}
           editInterestModal={this.state.editInterestModal}
           findFriendInterests={this.findFriendInterests}
@@ -221,10 +232,15 @@ export default class FriendDetail extends Component {
         />
         <EditGiftForm
           friend={friend}
+          userOccasions={this.state.userOccasions}
+          friendOccGifts={this.state.friendOccGifts}
           toggleEditGift={this.toggleEditGift}
           editGiftModal={this.state.editGiftModal}
           findFriendGiftIdeas={this.findFriendGiftIdeas}
+          findFriendGifts={this.findFriendGifts}
           currentlyEditing={this.state.currentlyEditing}
+          savePurchasedGift={this.savePurchasedGift}
+          deleteFriendGift={this.deleteFriendGift}
           editFriendGift={this.editFriendGift}
         />
 
