@@ -9,6 +9,8 @@ import DetailGifts from "./DetailGifts"
 import DetailCelebrations from "./DetailCelebrations"
 import DetailInterestForm from "./DetailInterestForm"
 import DetailGiftForm from "./DetailGiftForm"
+import EditInterestForm from "./EditInterestForm"
+import EditGiftForm from "./EditGiftForm"
 import "./Detail.css"
 import API from "./../../modules/API/API"
 
@@ -20,8 +22,11 @@ export default class FriendDetail extends Component {
     friendDetail: [],
     friendInterests: [],
     friendGiftIdeas: [],
+    currentlyEditing: "",
     isLoaded: false,
     interestModal: false,
+    editInterestModal: false,
+    editGiftModal: false,
     giftModal: false
   }
   //function fetches this friend's occasions and corresponding gifts with user-occasion entity embedded. This can be used to find image from occasion array
@@ -54,7 +59,7 @@ export default class FriendDetail extends Component {
     return API.getData(`friend_giftIdeas?friendId=${friendId}`)
       .then((friendGiftIdeas) => this.setState({ friendGiftIdeas: friendGiftIdeas }))
   }
-   saveFriendInterest = (obj) => {
+  saveFriendInterest = (obj) => {
     return API.saveData(`friend_interests`, obj)
   }
 
@@ -68,6 +73,17 @@ export default class FriendDetail extends Component {
 
   deleteFriendGift = (id) => {
     return API.deleteData(`friend_giftIdeas`, id)
+  }
+
+  editFriendInterest = (obj, id) => {
+    return API.editData(`friend_interests`, obj, id)
+  }
+  editFriendGift = (obj, id) => {
+    return API.editData(`friend_giftIdeas`, obj, id)
+  }
+
+  currentlyEditing = (id) => {
+    return this.setState({ currentlyEditing: id })
   }
 
   componentDidMount() {
@@ -90,6 +106,20 @@ export default class FriendDetail extends Component {
     })
   }
 
+  toggleEditInterest = (interest) => {
+    this.setState({
+      editInterestModal: !this.state.editInterestModal,
+      currentlyEditing: interest
+    })
+  }
+
+  toggleEditGift = (gift) => {
+    this.setState({
+      editGiftModal: !this.state.editGiftModal,
+      currentlyEditing: gift
+    })
+  }
+
   render() {
     const friend = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)) || {}
 
@@ -108,11 +138,12 @@ export default class FriendDetail extends Component {
                         this.state.friendInterests.map(interest =>
                           <DetailInterests
                             key={interest.id}
-                            id={interest.id}
-                            interest={interest.interest}
+                            interest={interest}
                             friendInterests={this.state.friendInterests}
                             deleteFriendInterest={this.deleteFriendInterest}
                             findFriendInterests={this.findFriendInterests}
+                            toggleEditInterest={this.toggleEditInterest}
+                            currentlyEditing={this.currentlyEditing}
                           />
                         )
                       }
@@ -133,9 +164,9 @@ export default class FriendDetail extends Component {
                           this.state.friendGiftIdeas.map(giftIdea =>
                             <DetailGifts
                               key={giftIdea.id}
-                              id={giftIdea.id}
-                              giftIdea={giftIdea.giftIdea}
+                              giftIdea={giftIdea}
                               deleteFriendGift={this.deleteFriendGift}
+                              toggleEditGift={this.toggleEditGift}
                               findFriendGiftIdeas={this.findFriendGiftIdeas}
                             />
                           )
@@ -180,6 +211,23 @@ export default class FriendDetail extends Component {
           saveFriendGift={this.saveFriendGift}
           findFriendGiftIdeas={this.findFriendGiftIdeas}
         />
+        <EditInterestForm
+          friend={friend}
+          toggleEditInterest={this.toggleEditInterest}
+          editInterestModal={this.state.editInterestModal}
+          findFriendInterests={this.findFriendInterests}
+          currentlyEditing={this.state.currentlyEditing}
+          editFriendInterest={this.editFriendInterest}
+        />
+        <EditGiftForm
+          friend={friend}
+          toggleEditGift={this.toggleEditGift}
+          editGiftModal={this.state.editGiftModal}
+          findFriendGiftIdeas={this.findFriendGiftIdeas}
+          currentlyEditing={this.state.currentlyEditing}
+          editFriendGift={this.editFriendGift}
+        />
+
       </React.Fragment>
 
     );
