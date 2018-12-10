@@ -62,6 +62,14 @@ export default class FriendDetail extends Component {
     return API.saveData(`friend_giftIdeas`, obj)
   }
 
+  deleteFriendInterest = (id) => {
+    return API.deleteData(`friend_interests`, id)
+  }
+
+  deleteFriendGift = (id) => {
+    return API.deleteData(`friend_giftIdeas`, id)
+  }
+
   componentDidMount() {
     this.getUserOccasions(this.props.currentUser)
       .then(() => this.findFriendInterests())
@@ -99,12 +107,15 @@ export default class FriendDetail extends Component {
                       {
                         this.state.friendInterests.map(interest =>
                           <DetailInterests
+                            key={interest.id}
+                            id={interest.id}
                             interest={interest.interest}
                             friendInterests={this.state.friendInterests}
+                            deleteFriendInterest={this.deleteFriendInterest}
+                            findFriendInterests={this.findFriendInterests}
                           />
                         )
                       }
-
 
                     </CardText>
                     <i className="icon-plus float-right " onClick={(e) => {
@@ -121,7 +132,11 @@ export default class FriendDetail extends Component {
                         {
                           this.state.friendGiftIdeas.map(giftIdea =>
                             <DetailGifts
+                              key={giftIdea.id}
+                              id={giftIdea.id}
                               giftIdea={giftIdea.giftIdea}
+                              deleteFriendGift={this.deleteFriendGift}
+                              findFriendGiftIdeas={this.findFriendGiftIdeas}
                             />
                           )
                         }
@@ -138,6 +153,7 @@ export default class FriendDetail extends Component {
                 {
                   this.state.friendOccGifts.map(friendOcc =>
                     <DetailCelebrations
+                      key={friend.id}
                       friend={friend}
                       friendOcc={friendOcc}
                       friendDetail={this.state.friendDetail}

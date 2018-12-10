@@ -14,7 +14,13 @@ export default class DetailGifts extends Component {
           onMouseLeave={() => this.setState({hover:false})}>{this.props.giftIdea}
           {
             (this.state.hover === true)
-            ? <div><i className="icon-pencil float-right "></i> <i className="icon-trash float-right mx-2 "></i></div>
+            ? <div><i className="icon-pencil float-right "></i>
+            <i className="icon-trash float-right mx-2 " onClick={() => {
+              this.props.deleteFriendGift(this.props.id)
+              .then(()=> this.props.findFriendGiftIdeas())
+            }
+            }></i>
+            </div>
             : null
           }
         </ListGroupItem>
