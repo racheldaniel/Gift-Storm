@@ -7,7 +7,8 @@ import {
 import DetailInterests from "./DetailInterests"
 import DetailGifts from "./DetailGifts"
 import DetailCelebrations from "./DetailCelebrations"
-
+import DetailInterestForm from "./DetailInterestForm"
+import DetailGiftForm from "./DetailGiftForm"
 import "./Detail.css"
 import API from "./../../modules/API/API"
 
@@ -17,7 +18,11 @@ export default class FriendDetail extends Component {
     friendOccGifts: [],
     userOccasions: [],
     friendDetail: [],
-    isLoaded: false
+    friendInterests: [],
+    friendGiftIdeas: [],
+    isLoaded: false,
+    interestModal: false,
+    giftModal: false
   }
   //function fetches this friend's occasions and corresponding gifts with user-occasion entity embedded. This can be used to find image from occasion array
   findFriendGifts = () => {
@@ -38,10 +43,43 @@ export default class FriendDetail extends Component {
       .then((userOccasions) => this.setState({ userOccasions: userOccasions }))
   }
 
+  findFriendInterests = () => {
+    const friendId = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)).id || {}
+    return API.getData(`friend_interests?friendId=${friendId}`)
+      .then((friendInterests) => this.setState({ friendInterests: friendInterests }))
+  }
+
+  findFriendGiftIdeas = () => {
+    const friendId = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)).id || {}
+    return API.getData(`friend_giftIdeas?friendId=${friendId}`)
+      .then((friendGiftIdeas) => this.setState({ friendGiftIdeas: friendGiftIdeas }))
+  }
+   saveFriendInterest = (obj) => {
+    return API.saveData(`friend_interests`, obj)
+  }
+
+  saveFriendGift = (obj) => {
+    return API.saveData(`friend_giftIdeas`, obj)
+  }
+
   componentDidMount() {
     this.getUserOccasions(this.props.currentUser)
+      .then(() => this.findFriendInterests())
+      .then(() => this.findFriendGiftIdeas())
       .then(() => this.findFriend())
       .then(() => this.findFriendGifts())
+  }
+
+  toggleInterest = () => {
+    this.setState({
+      interestModal: !this.state.interestModal,
+    })
+  }
+
+  toggleGift = () => {
+    this.setState({
+      giftModal: !this.state.giftModal,
+    })
   }
 
   render() {
@@ -59,17 +97,19 @@ export default class FriendDetail extends Component {
                     <CardHeader className="detailCard--Heading text-center" id="interest--head"><h2>Interests</h2></CardHeader>
                     <CardText className=" d-flex align-items-center flex-wrap text-center">
                       {
-                        this.state.friendDetail[0].interests.map(interest =>
+                        this.state.friendInterests.map(interest =>
                           <DetailInterests
-                            interest={interest}
-                            friendDetail={this.state.friendDetail}
+                            interest={interest.interest}
+                            friendInterests={this.state.friendInterests}
                           />
                         )
                       }
 
 
                     </CardText>
-                    <i className="icon-plus float-right "></i>
+                    <i className="icon-plus float-right " onClick={(e) => {
+                      this.toggleInterest()
+                    }}></i>
                   </CardBody>
                 </Card>
 
@@ -79,16 +119,17 @@ export default class FriendDetail extends Component {
                     <CardText className=" d-flex align-items-center flex-wrap">
                       <ListGroup className="detailCard--ul ">
                         {
-                          this.state.friendDetail[0].giftIdeas.map(giftIdea =>
+                          this.state.friendGiftIdeas.map(giftIdea =>
                             <DetailGifts
-                              giftIdea={giftIdea}
-                              friendDetail={this.state.friendDetail}
+                              giftIdea={giftIdea.giftIdea}
                             />
                           )
                         }
                       </ListGroup>
                     </CardText>
-                    <i className="icon-plus float-right "></i>
+                    <i className="icon-plus float-right " onClick={(e) => {
+                      this.toggleGift()
+                    }}></i>
                   </CardBody>
                 </Card>
               </CardDeck>
@@ -109,6 +150,20 @@ export default class FriendDetail extends Component {
             </Container>
             : null
         }
+        <DetailInterestForm
+          friend={friend}
+          toggleInterest={this.toggleInterest}
+          interestModal={this.state.interestModal}
+          saveFriendInterest={this.saveFriendInterest}
+          findFriendInterests={this.findFriendInterests}
+        />
+        <DetailGiftForm
+          friend={friend}
+          toggleGift={this.toggleGift}
+          giftModal={this.state.giftModal}
+          saveFriendGift={this.saveFriendGift}
+          findFriendGiftIdeas={this.findFriendGiftIdeas}
+        />
       </React.Fragment>
 
     );
