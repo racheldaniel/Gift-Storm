@@ -13,9 +13,10 @@ export default class Friends extends Component {
     isLoaded: false
   }
   toggle = (e) => {
-    this.setState({
+   return this.setState({
       modal: !this.state.modal,
     })
+
   }
 
   //this function will get all friends with their occasions embedded and set state in this component
@@ -35,11 +36,12 @@ export default class Friends extends Component {
       .then(() => this.getUserOccasions(this.props.currentUser))
   }
 
+
   render() {
     return (
      <React.Fragment>
         {
-          (this.state.isLoaded === true)
+          (this.state.isLoaded === true )
             ?  <Container>
             <h1 className="text-center text-info my-4">Your Friends</h1>
             <div className="text-info text-center mt-4" ><Button className="text-info" color="primary" id="addEvent" onClick={(e) => {
@@ -49,6 +51,10 @@ export default class Friends extends Component {
               toggle={this.toggle}
               modal={this.state.modal}
               userOccasions={this.state.userOccasions}
+              currentUser={this.props.currentUser}
+              getFriendOccasions={this.getFriendOccasions}
+              getUserOccasions={this.getUserOccasions}
+
             />
             <FriendList friendOccasions={this.state.friendOccasions} userOccasions={this.state.userOccasions} />
             </Container>

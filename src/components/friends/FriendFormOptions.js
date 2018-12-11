@@ -8,14 +8,16 @@ export default class FriendFormOptions extends Component {
       <React.Fragment>
         <FormGroup check>
           <Label htmlFor={this.props.occ.occasion.name} check>
-            <Input type="checkbox" value={this.props.occ.occasion.name} />{' '}
+            <Input type="checkbox" value={this.props.occ.occasion.name} onClick={(() =>
+                this.props.onCheckboxClick(this.props.occ.id))} />{' '}
             {this.props.occ.occasion.name}
               </Label>
         </FormGroup>
         {
           (this.props.occ.occasion.groupHoliday === "0")
             ? <FormGroup>
-              <Input type="text" defaultValue="Date" />{' '}
+              <Input type="date" defaultValue="Date" id={this.props.occ.id} onChange={((e) =>
+                this.props.handleFieldChange(e))}/>{' '}
             </FormGroup>
             : null
         }

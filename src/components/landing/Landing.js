@@ -32,7 +32,6 @@ export default class Landing extends Component {
   // Function iterates over friendOccasions and returns an array containing only those with unique user_occasion Id's-- this
   findUniqueOccasions = () => {
     let uniqueOccasions = []
-    uniqueOccasions.push(this.state.friendOccasions[0])
     this.state.friendOccasions.forEach((friendOcc)=>{
       let count = 0
       let userOcc = this.state.userOccasions.find(occ =>
