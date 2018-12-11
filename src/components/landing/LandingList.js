@@ -6,7 +6,18 @@ export default class LandingList extends Component{
   render () {
     return(
       <ListGroup className="upcoming">
-        <LandingItem />
+      {
+        this.props.uniqueFriendOccs.map(friendOcc =>
+          <LandingItem
+          key={friendOcc.id}
+          friendOcc={friendOcc}
+          friends={this.props.friends}
+          uniqueFriendOccs={this.props.uniqueFriendOccs}
+          userOccasions={this.props.userOccasions}
+          />
+          )
+      }
+
 
       </ListGroup>
 

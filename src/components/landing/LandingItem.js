@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Col } from 'reactstrap';
-import anniversary from "./../../images/anniversary.png"
-import complete from "./../../images/complete.png"
-import christmas from "./../../images/christmas.png"
 import inProgress from "./../../images/inProgress.png"
 
 export default class LandingItem extends Component {
   render() {
+    let userOcc = this.props.userOccasions.find(occ =>
+      occ.occasionId === this.props.friendOcc.user_occasionId
+    )
+
+    let friend = this.props.friends.find(friend=>
+        friend.id === this.props.friendOcc.friendId
+      )
+
     return (
       <React.Fragment>
         <ListGroupItem className="landingListItem">
           <Row>
             <Col xs={3} className="d-flex align-items-center  my-auto">
-              <img src={christmas} alt="Anniversary" className="img-thumbnail"/>
+              <img src={userOcc.occasion.img} alt={userOcc.occasion.name} className="img-thumbnail"/>
             </Col>
             <Col xs={4} className="d-flex align-items-center text-center">
-              <h2>CHRISTMAS</h2>
-
+              {
+                (userOcc.occasion.groupHoliday === "1")
+                ? <h2>{userOcc.occasion.name}</h2>
+                :<h2>{`${friend.name}'s ${userOcc.occasion.name}`}</h2>
+              }
             </Col>
             <Col xs={3} className="d-flex align-items-center text-center" >
 
-              <ListGroupItemHeading>12/25</ListGroupItemHeading>
+              <ListGroupItemHeading>{this.props.friendOcc.date}</ListGroupItemHeading>
             </Col>
             <Col xs={2} className="text-center my-auto">
               <img src={inProgress} alt="inProgress" className="img-thumbnail" />
@@ -28,27 +36,6 @@ export default class LandingItem extends Component {
           </Row>
 
         </ListGroupItem>
-        <ListGroupItem className="landingListItem">
-          <Row>
-            <Col xs={3} className="d-flex align-items-center">
-              <img src={anniversary} alt="Anniversary" className="img-thumbnail"/>
-            </Col>
-            <Col xs={4} className="d-flex align-items-center text-center">
-              <h3 >Hannah's Anniversary</h3>
-
-            </Col>
-            <Col xs={3} className="d-flex align-items-center text-center" >
-
-              <ListGroupItemHeading>12/31</ListGroupItemHeading>
-            </Col>
-            <Col xs={2} className=" my-auto text-center">
-              <img src={complete} alt="Complete" className="img-thumbnail" />
-            </Col>
-          </Row>
-
-        </ListGroupItem>
-
-
       </React.Fragment>
 
     )
