@@ -23,7 +23,15 @@ export default class FriendForm extends Component {
             </FormGroup>
             <h5>What occasions will you be tracking for this Friend?</h5>
             <div >
-              <FriendFormOptions />
+              {
+                this.props.userOccasions.map(occ =>
+                  <FriendFormOptions
+                    key={occ.id}
+                    occ={occ}
+                  />
+                  )
+              }
+
             </div>
 
 

@@ -48,6 +48,7 @@ export default class Friends extends Component {
             <FriendForm
               toggle={this.toggle}
               modal={this.state.modal}
+              userOccasions={this.state.userOccasions}
             />
             <FriendList friendOccasions={this.state.friendOccasions} userOccasions={this.state.userOccasions} />
             </Container>
