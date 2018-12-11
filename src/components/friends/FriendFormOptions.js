@@ -17,7 +17,14 @@ export default class FriendFormOptions extends Component {
           (this.props.occ.occasion.groupHoliday === "0")
             ? <FormGroup>
               <Input type="date" defaultValue="Date" id={this.props.occ.id} onChange={((e) =>
-                this.props.handleFieldChange(e))}/>{' '}
+                this.props.handleFieldChange(e))}
+                //TODO: this currently isn't working-- need date to be mandatory if box is checked
+                required= {
+                  (this.props.friendOccasions.includes(this.props.occ.id))
+                  ? "true"
+                  : null
+                }
+                />{' '}
             </FormGroup>
             : null
         }

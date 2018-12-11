@@ -16,6 +16,9 @@ export default class FriendList extends Component{
         userOccasions={this.props.userOccasions}
         deleteFriend={this.props.deleteFriend}
         getFriendOccasions={this.props.getFriendOccasions}
+        toggleEdit={this.props.toggleEdit}
+        editModal={this.props.editModal}
+        findUntrackedOccasions={this.props.findUntrackedOccasions}
         />)
       }
 

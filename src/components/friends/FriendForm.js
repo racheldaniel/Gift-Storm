@@ -78,7 +78,7 @@ export default class FriendForm extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className} >
+      <Modal isOpen={this.props.addModal} toggle={this.props.toggleAdd} className={this.props.className} >
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -87,12 +87,12 @@ export default class FriendForm extends Component {
               .then(()=> this.props.getFriendOccasions(this.props.currentUser))
               .then(()=> this.props.getUserOccasions(this.props.currentUser))
               //TODO: render still isn't happening fast enough
-              .then(()=> this.props.toggle())
+              .then(()=> this.props.toggleAdd())
 
           }
           }
         >
-          <ModalHeader toggle={this.props.toggle}>Add a Friend</ModalHeader>
+          <ModalHeader toggle={this.props.toggleAdd}>Add a Friend</ModalHeader>
           <ModalBody id="addFriendForm">
             <FormGroup>
               <Label for="name">Name</Label>
@@ -104,6 +104,7 @@ export default class FriendForm extends Component {
                 this.props.userOccasions.map(occ =>
                   <FriendFormOptions
                     key={occ.id}
+                    friendOccasions={this.state.friendOccasions}
                     onCheckboxClick={this.onCheckboxClick}
                     handleFieldChange={this.handleFieldChange}
                     occ={occ}
@@ -118,7 +119,7 @@ export default class FriendForm extends Component {
           <ModalFooter>
             <Button color="primary" /*onSubmit={() => { }} */>Save</Button>
             <Button color="light" onClick={(e) => {
-              this.props.toggle()
+              this.props.toggleAdd()
             }}
             >Cancel</Button>
           </ModalFooter>

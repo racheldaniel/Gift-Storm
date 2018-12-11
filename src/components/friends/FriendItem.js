@@ -41,8 +41,9 @@ export default class FriendItem extends Component {
             <Col xs={2} className="float-right" >
               <i className="icon-pencil float-right "
                 onClick={() => {
-                  // this.props.toggleEditGift(this.props.giftIdea)
-                  console.log("click")
+                  this.props.toggleEdit(this.props.friend)
+                  .then(()=> this.props.findUntrackedOccasions())
+                  console.log(this.props.friend)
                 }
                 }></i>
               <i className="icon-trash float-right mx-2 " onClick={() => {
