@@ -11,8 +11,12 @@ export default class FriendList extends Component{
         this.props.friendOccasions.map(friend =>
         <FriendItem key={friend.id}
         friend={friend}
+        currentUser={this.props.currentUser}
         friendOccasions={this.props.friendOccasions}
-        userOccasions={this.props.userOccasions}/>)
+        userOccasions={this.props.userOccasions}
+        deleteFriend={this.props.deleteFriend}
+        getFriendOccasions={this.props.getFriendOccasions}
+        />)
       }
 
 

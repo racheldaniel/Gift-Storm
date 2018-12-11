@@ -22,18 +22,22 @@ export default class Friends extends Component {
   //this function will get all friends with their occasions embedded and set state in this component
   getFriendOccasions = (currentUser) => {
     return API.getData(`friends?userId=${currentUser}&_embed=friend_occasions`)
-      .then((friendOccasions) => this.setState({ friendOccasions: friendOccasions }))
+      .then((friendOccasions) => this.setState({ friendOccasions: friendOccasions, isLoaded: true  }))
   }
 
   //this function will get all user occasions expanded with the occasion details , then set state in this component
   getUserOccasions = (currentUser) => {
     return API.getData(`user_occasions?userId=${currentUser}&_expand=occasion`)
-      .then((userOccasions) => this.setState({ userOccasions: userOccasions, isLoaded: true }))
+      .then((userOccasions) => this.setState({ userOccasions: userOccasions}))
   }
 
   componentDidMount() {
-    this.getFriendOccasions(this.props.currentUser)
-      .then(() => this.getUserOccasions(this.props.currentUser))
+    this.getUserOccasions(this.props.currentUser)
+      .then(() => this.getFriendOccasions(this.props.currentUser))
+  }
+
+  deleteFriend = (id) => {
+    return API.deleteData(`friends`, id)
   }
 
 
@@ -56,7 +60,13 @@ export default class Friends extends Component {
               getUserOccasions={this.getUserOccasions}
 
             />
-            <FriendList friendOccasions={this.state.friendOccasions} userOccasions={this.state.userOccasions} />
+            <FriendList
+            currentUser={this.props.currentUser}
+            friendOccasions={this.state.friendOccasions}
+            userOccasions={this.state.userOccasions}
+            deleteFriend={this.deleteFriend}
+            getFriendOccasions={this.getFriendOccasions}
+            />
             </Container>
             : null
         }
