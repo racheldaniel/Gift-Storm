@@ -7,47 +7,28 @@ export default class FriendFormOptions extends Component {
     return (
       <React.Fragment>
         <FormGroup check>
-          <Label htmlFor="birthday" check>
-            <Input type="checkbox" value="birthday" />{' '}
-            Birthday
+          <Label htmlFor={this.props.occ.occasion.name} check>
+            <Input type="checkbox" value={this.props.occ.occasion.name} onClick={(() =>
+                this.props.onCheckboxClick(this.props.occ.id))} />{' '}
+            {this.props.occ.occasion.name}
               </Label>
         </FormGroup>
-        <FormGroup check>
-          <Input type="text" defaultValue="Date" />{' '}
-        </FormGroup>
-        <FormGroup check>
-          <Label htmlFor="anniversary" check>
-            <Input type="checkbox" value="anniversary" />{' '}
-            Anniversary
-              </Label>
-        </FormGroup>
-        <FormGroup check>
-          <Input type="text" defaultValue="Date" />{' '}
-        </FormGroup>
-        <FormGroup check>
-          <Label check>
-            <Input type="checkbox" />{' '}
-            Mother's Day
-              </Label>
-        </FormGroup>
-        <FormGroup check>
-          <Label check>
-            <Input type="checkbox" />{' '}
-            Father's Day
-              </Label>
-        </FormGroup>
-        <FormGroup check>
-          <Label check>
-            <Input type="checkbox" />{' '}
-            Valentine's Day
-              </Label>
-        </FormGroup>
-        <FormGroup check>
-          <Label check>
-            <Input type="checkbox" />{' '}
-            Christmas
-              </Label>
-        </FormGroup>
+        {
+          (this.props.occ.occasion.groupHoliday === "0")
+            ? <FormGroup>
+              <Input type="date" defaultValue="Date" id={this.props.occ.id} onChange={((e) =>
+                this.props.handleFieldChange(e))}
+                //TODO: this currently isn't working-- need date to be mandatory if box is checked
+                required= {
+                  (this.props.friendOccasions.includes(this.props.occ.id))
+                  ? "true"
+                  : null
+                }
+                />{' '}
+            </FormGroup>
+            : null
+        }
+
 
       </React.Fragment>
 

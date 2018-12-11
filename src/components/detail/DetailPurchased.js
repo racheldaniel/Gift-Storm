@@ -6,7 +6,7 @@ export default class DetailPurchased extends Component {
   render() {
     return (
       <React.Fragment>
-        <ListGroupItem className="detailCard--li">{this.props.gift.name}</ListGroupItem>
+        <ListGroupItem className="detailCard--li text-info">{this.props.gift.name}</ListGroupItem>
       </React.Fragment>
 
     )

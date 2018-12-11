@@ -91,7 +91,7 @@ export default class DetailGiftForm extends Component {
                   ?
                   <React.Fragment>
                     <Label htmlFor="occasionName">For:</Label>
-                    <Input type="select" name="occasionName" id="occasionName" onChange={this.handleFieldChange}>
+                    <Input type="select" name="occasionName" id="occasionName" onChange={this.handleFieldChange} >
                       <option>-Select-</option>
                       {this.props.friendOccGifts.map(friendOcc =>
                         <DetailGiftOptions
