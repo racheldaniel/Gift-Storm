@@ -7,7 +7,10 @@ import {
 import DetailInterests from "./DetailInterests"
 import DetailGifts from "./DetailGifts"
 import DetailCelebrations from "./DetailCelebrations"
-
+import DetailInterestForm from "./DetailInterestForm"
+import DetailGiftForm from "./DetailGiftForm"
+import EditInterestForm from "./EditInterestForm"
+import EditGiftForm from "./EditGiftForm"
 import "./Detail.css"
 import API from "./../../modules/API/API"
 
@@ -17,7 +20,14 @@ export default class FriendDetail extends Component {
     friendOccGifts: [],
     userOccasions: [],
     friendDetail: [],
-    isLoaded: false
+    friendInterests: [],
+    friendGiftIdeas: [],
+    currentlyEditing: "",
+    isLoaded: false,
+    interestModal: false,
+    editInterestModal: false,
+    editGiftModal: false,
+    giftModal: false
   }
   //function fetches this friend's occasions and corresponding gifts with user-occasion entity embedded. This can be used to find image from occasion array
   findFriendGifts = () => {
@@ -26,6 +36,7 @@ export default class FriendDetail extends Component {
       .then((friendOccGifts) => this.setState({ friendOccGifts: friendOccGifts, isLoaded: true }))
   }
 
+  //function fetches friend data
   findFriend = () => {
     const friend = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)) || {}
     return API.getData(`friends?id=${friend.id}`)
@@ -38,10 +49,80 @@ export default class FriendDetail extends Component {
       .then((userOccasions) => this.setState({ userOccasions: userOccasions }))
   }
 
+  findFriendInterests = () => {
+    const friendId = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)).id || {}
+    return API.getData(`friend_interests?friendId=${friendId}`)
+      .then((friendInterests) => this.setState({ friendInterests: friendInterests }))
+  }
+
+  findFriendGiftIdeas = () => {
+    const friendId = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)).id || {}
+    return API.getData(`friend_giftIdeas?friendId=${friendId}`)
+      .then((friendGiftIdeas) => this.setState({ friendGiftIdeas: friendGiftIdeas }))
+  }
+  saveFriendInterest = (obj) => {
+    return API.saveData(`friend_interests`, obj)
+  }
+
+  saveFriendGift = (obj) => {
+    return API.saveData(`friend_giftIdeas`, obj)
+  }
+
+  savePurchasedGift = (obj) => {
+    return API.saveData(`gifts`, obj)
+  }
+
+  deleteFriendInterest = (id) => {
+    return API.deleteData(`friend_interests`, id)
+  }
+
+  deleteFriendGift = (id) => {
+    return API.deleteData(`friend_giftIdeas`, id)
+  }
+
+  editFriendInterest = (obj, id) => {
+    return API.editData(`friend_interests`, obj, id)
+  }
+  editFriendGift = (obj, id) => {
+    return API.editData(`friend_giftIdeas`, obj, id)
+  }
+
+  currentlyEditing = (id) => {
+    return this.setState({ currentlyEditing: id })
+  }
+
   componentDidMount() {
     this.getUserOccasions(this.props.currentUser)
+      .then(() => this.findFriendInterests())
+      .then(() => this.findFriendGiftIdeas())
       .then(() => this.findFriend())
       .then(() => this.findFriendGifts())
+  }
+
+  toggleInterest = () => {
+    this.setState({
+      interestModal: !this.state.interestModal,
+    })
+  }
+
+  toggleGift = () => {
+    this.setState({
+      giftModal: !this.state.giftModal,
+    })
+  }
+
+  toggleEditInterest = (interest) => {
+    this.setState({
+      editInterestModal: !this.state.editInterestModal,
+      currentlyEditing: interest
+    })
+  }
+
+  toggleEditGift = (gift) => {
+    this.setState({
+      editGiftModal: !this.state.editGiftModal,
+      currentlyEditing: gift
+    })
   }
 
   render() {
@@ -59,17 +140,23 @@ export default class FriendDetail extends Component {
                     <CardHeader className="detailCard--Heading text-center" id="interest--head"><h2>Interests</h2></CardHeader>
                     <CardText className=" d-flex align-items-center flex-wrap text-center">
                       {
-                        this.state.friendDetail[0].interests.map(interest =>
+                        this.state.friendInterests.map(interest =>
                           <DetailInterests
+                            key={interest.id}
                             interest={interest}
-                            friendDetail={this.state.friendDetail}
+                            friendInterests={this.state.friendInterests}
+                            deleteFriendInterest={this.deleteFriendInterest}
+                            findFriendInterests={this.findFriendInterests}
+                            toggleEditInterest={this.toggleEditInterest}
+                            currentlyEditing={this.currentlyEditing}
                           />
                         )
                       }
 
-
                     </CardText>
-                    <i className="icon-plus float-right "></i>
+                    <i className="icon-plus float-right " onClick={(e) => {
+                      this.toggleInterest()
+                    }}></i>
                   </CardBody>
                 </Card>
 
@@ -79,16 +166,21 @@ export default class FriendDetail extends Component {
                     <CardText className=" d-flex align-items-center flex-wrap">
                       <ListGroup className="detailCard--ul ">
                         {
-                          this.state.friendDetail[0].giftIdeas.map(giftIdea =>
+                          this.state.friendGiftIdeas.map(giftIdea =>
                             <DetailGifts
+                              key={giftIdea.id}
                               giftIdea={giftIdea}
-                              friendDetail={this.state.friendDetail}
+                              deleteFriendGift={this.deleteFriendGift}
+                              toggleEditGift={this.toggleEditGift}
+                              findFriendGiftIdeas={this.findFriendGiftIdeas}
                             />
                           )
                         }
                       </ListGroup>
                     </CardText>
-                    <i className="icon-plus float-right "></i>
+                    <i className="icon-plus float-right " onClick={(e) => {
+                      this.toggleGift()
+                    }}></i>
                   </CardBody>
                 </Card>
               </CardDeck>
@@ -97,6 +189,7 @@ export default class FriendDetail extends Component {
                 {
                   this.state.friendOccGifts.map(friendOcc =>
                     <DetailCelebrations
+                      key={friendOcc.id}
                       friend={friend}
                       friendOcc={friendOcc}
                       friendDetail={this.state.friendDetail}
@@ -109,6 +202,48 @@ export default class FriendDetail extends Component {
             </Container>
             : null
         }
+        <DetailInterestForm
+          friend={friend}
+          toggleInterest={this.toggleInterest}
+          interestModal={this.state.interestModal}
+          saveFriendInterest={this.saveFriendInterest}
+          findFriendInterests={this.findFriendInterests}
+        />
+        <DetailGiftForm
+          friend={friend}
+          userOccasions={this.state.userOccasions}
+          friendOccGifts={this.state.friendOccGifts}
+          toggleGift={this.toggleGift}
+          giftModal={this.state.giftModal}
+          saveFriendGift={this.saveFriendGift}
+          findFriendGiftIdeas={this.findFriendGiftIdeas}
+          savePurchasedGift={this.savePurchasedGift}
+          findFriendGifts={this.findFriendGifts}
+        />
+        <EditInterestForm
+          friend={friend}
+          userOccasions={this.state.userOccasions}
+          friendOccGifts={this.state.friendOccGifts}
+          toggleEditInterest={this.toggleEditInterest}
+          editInterestModal={this.state.editInterestModal}
+          findFriendInterests={this.findFriendInterests}
+          currentlyEditing={this.state.currentlyEditing}
+          editFriendInterest={this.editFriendInterest}
+        />
+        <EditGiftForm
+          friend={friend}
+          userOccasions={this.state.userOccasions}
+          friendOccGifts={this.state.friendOccGifts}
+          toggleEditGift={this.toggleEditGift}
+          editGiftModal={this.state.editGiftModal}
+          findFriendGiftIdeas={this.findFriendGiftIdeas}
+          findFriendGifts={this.findFriendGifts}
+          currentlyEditing={this.state.currentlyEditing}
+          savePurchasedGift={this.savePurchasedGift}
+          deleteFriendGift={this.deleteFriendGift}
+          editFriendGift={this.editFriendGift}
+        />
+
       </React.Fragment>
 
     );
