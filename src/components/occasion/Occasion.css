@@ -1,0 +1,38 @@
+.detailCard--Heading {
+  padding: 10px;
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  color: #FFFDF6
+
+}
+
+.detailCard {
+  background-color: #BFACAA;
+  border: 3px solid #01172F
+}
+
+.pill {
+  font-size: 1em
+}
+
+.icon-plus {
+  font-weight: bold
+}
+
+.detailCard--ul {
+  margin: 0 auto
+}
+
+.detailCard--li {
+  background-color: #01172F;
+  margin: 2px;
+  color: #BFACAA
+}
+
+.landingListItem {
+  background-color: #BFACAA
+}
+
+#interest--head, #gift--head {
+  opacity: 1
+}

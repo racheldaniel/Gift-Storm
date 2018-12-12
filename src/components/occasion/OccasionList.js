@@ -7,7 +7,7 @@ export default class OccasionList extends Component{
 
 
     return(
-      <ListGroup className="occasionFriends">
+      <ListGroup className="occasionFriends detailCard--ul">
       {
         this.props.friendOccasions.map(friendOcc =>
           <OccasionItem

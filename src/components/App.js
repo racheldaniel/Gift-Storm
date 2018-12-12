@@ -20,26 +20,30 @@ export default class App extends Component {
       .then((friends) => this.setState({ friends: friends, isLoaded: true }))
   }
 
-   //this function will get all user occasions expanded with the occasion details , then set state in this component
-   getUserOccasions = (currentUser) => {
+  //this function will get all user occasions expanded with the occasion details , then set state in this component
+  getUserOccasions = (currentUser) => {
     return API.getData(`user_occasions?userId=${currentUser}&_expand=occasion`)
       .then((userOccasions) => this.setState({ userOccasions: userOccasions }))
   }
 
   componentDidMount() {
     this.getUserOccasions(this.props.currentUser)
-    .then(()=> this.findFriends())
+      .then(() => this.findFriends())
   }
 
   render() {
 
     return (
       <Switch>
-        <Route exact path="/" render={(props) => {
 
-          return <Landing {...props}
-            currentUser={this.props.currentUser}
-          />
+        <Route exact path="/" render={(props) => {
+          if (this.state.isLoaded === true) {
+            return <Landing {...props}
+              currentUser={this.props.currentUser}
+            />
+          } else {
+            return null
+          }
         }} />
         <Route exact path="/friends" render={(props) => {
 

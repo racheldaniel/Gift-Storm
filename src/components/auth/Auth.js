@@ -25,6 +25,7 @@ export default class Auth extends Component {
 
   }
 
+
   componentDidMount() {
     this.loginSuccessful()
   }
@@ -35,7 +36,7 @@ export default class Auth extends Component {
         {
           (this.state.auth === false)
             ? <Login auth={this.state.auth} loginSuccessful={this.loginSuccessful}/>
-            : <GiftStorm auth={this.state.auth} currentUser={this.state.currentUser}/>
+            : <GiftStorm auth={this.state.auth} currentUser={this.state.currentUser} redirectUser={this.redirectUser}/>
         }
       </React.Fragment>
 

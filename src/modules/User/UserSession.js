@@ -4,7 +4,7 @@
 
 const userSession = {
   logInUser(id) {
-    window.sessionStorage.setItem("id", id)
+    return window.sessionStorage.setItem("id", id)
   },
 
   getUser() {
