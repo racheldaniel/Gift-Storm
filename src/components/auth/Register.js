@@ -29,7 +29,7 @@ export default class FriendForm extends Component {
     }
     //validate and submit
     return validate.newUser(obj)
-      .then(() => this.props.loginSuccessful())
+      // .then(() => this.props.loginSuccessful())
   }
 
   //function creates an array of all checked boxes by id defined in boxes' onClick. These ids correspond to the ids in the occasions table
@@ -44,15 +44,17 @@ export default class FriendForm extends Component {
 
   //function iterates over the selected user occasions in state, creates an object out of each with the user id, and posts to the user-occasions table
   postUserOccasions = () => {
+    let promises = []
     const currentUser = userSession.getUser()
     this.state.userOccasions.forEach((occasion) => {
       let obj = {
         userId: currentUser,
         occasionId: occasion
       }
-      API.saveData("user-occasions", obj)
+      promises.push(API.saveData("user_occasions", obj))
 
     })
+    return Promise.all(promises)
   }
 
   render() {

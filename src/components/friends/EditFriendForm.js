@@ -36,6 +36,10 @@ export default class EditFriendForm extends Component {
     }
    }
 
+   clearState = () => {
+    return this.setState({addOccasions: [], removeOccasions: []})
+   }
+
 
   //function uses ids of form fields as keys, creates an object with input as value, and sets state
   handleFieldChange = e => {
@@ -49,6 +53,7 @@ export default class EditFriendForm extends Component {
   //function iterates over addOccasions-- if it's a group holiday, use the date on the occasion table. If not, find key in state that corresponds to the user_occasionId and set its value as the date.
 
   postNewOccasions = () => {
+    let promises = []
     this.state.addOccasions.forEach((friendOcc) => {
       let userOcc = this.props.userOccasions.find(occ =>
         occ.occasionId === friendOcc
@@ -70,16 +75,19 @@ export default class EditFriendForm extends Component {
           giftStatus: 0
         }
       }
-      return API.saveData(`friend_occasions`, obj)
+      promises.push(API.saveData(`friend_occasions`, obj))
 
     })
+    return Promise.all(promises)
   }
 
   //function that iterates over removeOccasions (which contains friend_occasionIds) and deletes each
   deleteFriendOccasions = () => {
+    let promises = []
     this.state.removeOccasions.forEach((friend_occasionId)=> {
-      return API.deleteData(`friend_occasions`, friend_occasionId)
+       promises.push(API.deleteData(`friend_occasions`, friend_occasionId))
     })
+    return Promise.all(promises)
   }
 
   updateFriend = () => {
@@ -94,11 +102,13 @@ export default class EditFriendForm extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.props.editModal} toggle={this.props.toggleEdit} className={this.props.className} >
+      <Modal isOpen={this.props.editModal} toggle={this.props.toggleEdit} className={this.props.className}  >
         <form
+
           onSubmit={(e) => {
             e.preventDefault()
             this.updateFriend()
+            .then(()=> this.clearState())
             .then(()=>this.props.toggleEdit(""))
 
           }
@@ -116,7 +126,7 @@ export default class EditFriendForm extends Component {
             </FormGroup>
             <h5>{`Occasions You're Tracking For ${this.props.currentlyEditing.name}:`}</h5>
             <ListGroup>
-            { (this.props.currentlyEditing !== "")
+            { (this.props.editModal === true)
                ? this.props.currentlyEditing.friend_occasions.map(friendOcc =>
                     <EditFormTracked
                     key={friendOcc.id}
@@ -133,7 +143,7 @@ export default class EditFriendForm extends Component {
             <h5>{`Occasions You Aren't Tracking:`}</h5>
             <div >
               {
-                (this.props.currentlyEditing !== "")
+                (this.props.editModal === true)
                   ? this.props.notTracking.map(userOcc =>
                     <EditFormUntracked
                       key={userOcc.id}

@@ -9,8 +9,11 @@ const validate = {
     return API.getData(`users?email=${entryObject.email}`)
       .then((user) => {
         if (user.length === 0) {
+
           return API.saveData("users", entryObject)
+
             .then((user) => {
+              alert("Registration successful! Please log in")
               SessionStorage.logInUser(user.id)
             })
         } else {
