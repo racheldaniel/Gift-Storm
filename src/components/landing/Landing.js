@@ -13,7 +13,7 @@ export default class Landing extends Component {
   }
   //this function will get all friend occasions in ascending order
   getFriendOccasions = (currentUser) => {
-    return API.getData(`friend_occasions?userId=${currentUser}&_sort=date&_order=asc`)
+    return API.getData(`friend_occasions?userId=${currentUser}&_embed=gifts&_sort=date&_order=asc`)
       .then((friendOccasions) => this.setState({ friendOccasions: friendOccasions }))
   }
 
@@ -28,17 +28,49 @@ export default class Landing extends Component {
       .then((userOccasions) => this.setState({ userOccasions: userOccasions }))
   }
 
+  //function iterates over userOccasions and creates an array of friend occasions with the corresponding user_occasionId.
+  //It iterates over that new array and creates an object with a key of the user_occasionId and value of either complete, in progress, or null (depending on gifting status of all friend occasions for that user Occ).
+  //Those objects are pushed into an array, which is used to set state. This will be used for icon generation in LandingItem
+
+  setUserOccasionState = () => {
+    let statuses = []
+    let complete = true
+    this.state.userOccasions.forEach((userOcc) => {
+      let count = 0
+      let obj = {}
+      let friendOccs = this.state.friendOccasions.filter(friendOcc =>
+        friendOcc.user_occasionId === userOcc.id
+      )
+      friendOccs.forEach((friendOcc) => {
+        count += friendOcc.gifts.length
+        if (friendOcc.giftStatus === 0){
+          complete = false
+        }
+      })
+      if(complete === true){
+        obj[userOcc.id] = "complete"
+      } else if (complete === false && count > 0){
+        obj[userOcc.id] = "inProgress"
+      } else {
+        obj[userOcc.id] = "none"
+      }
+      statuses.push(obj)
+
+    })
+    return this.setState({statuses: statuses})
+  }
+
 
   // Function iterates over friendOccasions and returns an array containing only those with unique user_occasion Id's-- this
   findUniqueOccasions = () => {
     let uniqueOccasions = []
-    this.state.friendOccasions.forEach((friendOcc)=>{
+    this.state.friendOccasions.forEach((friendOcc) => {
       let count = 0
       let userOcc = this.state.userOccasions.find(occ =>
         occ.occasionId === friendOcc.user_occasionId
       )
-      uniqueOccasions.forEach((unique)=>{
-        if (unique.user_occasionId === friendOcc.user_occasionId && userOcc.occasion.groupHoliday === "1"){
+      uniqueOccasions.forEach((unique) => {
+        if (unique.user_occasionId === friendOcc.user_occasionId && userOcc.occasion.groupHoliday === "1") {
           count += 1
         }
       })
@@ -46,14 +78,15 @@ export default class Landing extends Component {
         uniqueOccasions.push(friendOcc)
       }
     })
-    return this.setState({uniqueFriendOccs: uniqueOccasions, isLoaded: true})
+    return this.setState({ uniqueFriendOccs: uniqueOccasions, isLoaded: true })
   }
 
   componentDidMount() {
     this.getFriendOccasions(this.props.currentUser)
-      .then(()=> this.getFriends(this.props.currentUser))
+      .then(() => this.getFriends(this.props.currentUser))
       .then(() => this.getUserOccasions(this.props.currentUser))
-      .then(()=> this.findUniqueOccasions())
+      .then(() => this.setUserOccasionState())
+      .then(() => this.findUniqueOccasions())
 
   }
 
@@ -68,6 +101,7 @@ export default class Landing extends Component {
                 friends={this.state.friends}
                 uniqueFriendOccs={this.state.uniqueFriendOccs}
                 userOccasions={this.state.userOccasions}
+                statuses={this.state.statuses}
               />
             </Container>
             : null
