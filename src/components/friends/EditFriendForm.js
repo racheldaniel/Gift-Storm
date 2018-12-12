@@ -37,7 +37,7 @@ export default class EditFriendForm extends Component {
    }
 
    clearState = () => {
-
+    return this.setState({addOccasions: [], removeOccasions: []})
    }
 
 
@@ -108,6 +108,7 @@ export default class EditFriendForm extends Component {
           onSubmit={(e) => {
             e.preventDefault()
             this.updateFriend()
+            .then(()=> this.clearState())
             .then(()=>this.props.toggleEdit(""))
 
           }

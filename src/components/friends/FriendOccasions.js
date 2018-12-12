@@ -6,18 +6,17 @@ export default class FriendOccasions extends Component {
 
 
   render() {
+    let userOcc = this.props.userOccasions.find(occ =>
+      occ.occasionId === this.props.friend_occasion.user_occasionId
+    )
 
     return (
       <React.Fragment>
         <Col className="text-center" >
-          <img src={this.props.userOccasions.find(occ =>
-            occ.occasionId === this.props.friend_occasion.user_occasionId
-          ).occasion.img}
+          <img src={userOcc.occasion.img}
 
-          alt={this.props.userOccasions.find(occ =>
-            occ.occasionId === this.props.friend_occasion.user_occasionId
-          ).occasion.name} />
-
+          alt={userOcc.occasion.name} />
+          <h5>{userOcc.occasion.name}</h5>
           <ListGroupItemText>{this.props.friend_occasion.date}</ListGroupItemText>
         </Col>
       </React.Fragment>
