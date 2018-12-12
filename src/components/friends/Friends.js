@@ -108,6 +108,7 @@ export default class Friends extends Component {
                 currentlyEditing={this.state.currentlyEditing}
                 notTracking={this.state.notTracking}
 
+
               />
             </Container>
             : null

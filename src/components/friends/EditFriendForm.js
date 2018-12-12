@@ -36,6 +36,10 @@ export default class EditFriendForm extends Component {
     }
    }
 
+   clearState = () => {
+
+   }
+
 
   //function uses ids of form fields as keys, creates an object with input as value, and sets state
   handleFieldChange = e => {
@@ -79,9 +83,11 @@ export default class EditFriendForm extends Component {
 
   //function that iterates over removeOccasions (which contains friend_occasionIds) and deletes each
   deleteFriendOccasions = () => {
+    let promises = []
     this.state.removeOccasions.forEach((friend_occasionId)=> {
-      return API.deleteData(`friend_occasions`, friend_occasionId)
+       promises.push(API.deleteData(`friend_occasions`, friend_occasionId))
     })
+    return Promise.all(promises)
   }
 
   updateFriend = () => {
@@ -96,8 +102,9 @@ export default class EditFriendForm extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.props.editModal} toggle={this.props.toggleEdit} className={this.props.className} >
+      <Modal isOpen={this.props.editModal} toggle={this.props.toggleEdit} className={this.props.className}  >
         <form
+
           onSubmit={(e) => {
             e.preventDefault()
             this.updateFriend()
@@ -118,7 +125,7 @@ export default class EditFriendForm extends Component {
             </FormGroup>
             <h5>{`Occasions You're Tracking For ${this.props.currentlyEditing.name}:`}</h5>
             <ListGroup>
-            { (this.props.currentlyEditing !== "")
+            { (this.props.editModal === true)
                ? this.props.currentlyEditing.friend_occasions.map(friendOcc =>
                     <EditFormTracked
                     key={friendOcc.id}
@@ -135,7 +142,7 @@ export default class EditFriendForm extends Component {
             <h5>{`Occasions You Aren't Tracking:`}</h5>
             <div >
               {
-                (this.props.currentlyEditing !== "")
+                (this.props.editModal === true)
                   ? this.props.notTracking.map(userOcc =>
                     <EditFormUntracked
                       key={userOcc.id}

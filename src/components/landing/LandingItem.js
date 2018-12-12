@@ -37,7 +37,7 @@ export default class LandingItem extends Component {
                 (userOcc.occasion.groupHoliday === "0")
                   ? <Link className="nav-link" to={`/friends/${this.props.friendOcc.friendId}`}>Details</Link>
 
-                  : null
+                  :<Link className="nav-link" to={`/occasions/${this.props.friendOcc.user_occasionId}`}>Details</Link>
               }
 
             </Col>

@@ -7,14 +7,15 @@ export default class OccasionList extends Component{
 
 
     return(
-      <ListGroup className="upcoming">
+      <ListGroup className="occasionFriends">
       {
-        this.props.uniqueFriendOccs.map(friendOcc =>
+        this.props.friendOccasions.map(friendOcc =>
           <OccasionItem
           key={friendOcc.id}
           friendOcc={friendOcc}
+          userOcc={this.props.userOcc}
           friends={this.props.friends}
-          uniqueFriendOccs={this.props.uniqueFriendOccs}
+          friendOccasions={this.props.friendOccasions}
           userOccasions={this.props.userOccasions}
           />
           )
