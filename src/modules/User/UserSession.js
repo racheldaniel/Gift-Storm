@@ -12,7 +12,7 @@ const userSession = {
   },
 
   logOutUser() {
-    window.sessionStorage.clear()
+    window.sessionStorage.clear().then(()=> window.location.reload())
   }
 }
 
