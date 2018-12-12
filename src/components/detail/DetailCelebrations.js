@@ -4,6 +4,7 @@ import {
   ListGroupItemHeading, FormGroup, Label, Input
 } from 'reactstrap';
 import complete from "./../../images/complete.png"
+import inProgress from "./../../images/inProgress.png"
 import DetailPurchased from "./DetailPurchased"
 
 
@@ -45,13 +46,27 @@ export default class DetailCelebrations extends Component {
               </ListGroup>
               <FormGroup check>
                 <Label check>
-                  <Input type="checkbox" />{' '}
+                  <Input type="checkbox" onClick={()=> this.props.toggleGiftStatus(this.props.friendOcc.giftStatus, this.props.friendOcc.id)}
+                  defaultChecked=
+                  {
+                    (this.props.friendOcc.giftStatus === 1)
+                    ? true
+                    : null
+                  }
+                  />{' '}
                   Complete
                   </Label>
               </FormGroup>
             </Col>
             <Col xs={2} className=" my-auto text-center">
-              <img src={complete} alt="Complete" />
+                {
+                  (this.props.friendOcc.giftStatus === 1)
+                  ? <img src={complete} alt="Complete"  />
+                  : (this.props.friendOcc.giftStatus === 0 && this.props.friendOcc.gifts.length > 0)
+                  ?  <img src={inProgress} alt="inProgress"  />
+                  : null
+                }
+
             </Col>
           </Row>
         </ListGroupItem>
