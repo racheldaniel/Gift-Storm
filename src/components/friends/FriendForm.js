@@ -47,9 +47,12 @@ export default class FriendForm extends Component {
         this.setState({ friendId: friendId })
       })
   }
+
+
   //function iterates over friend occasions-- if it's a group holiday, use the date on the occasion table. If not, find key in state that corresponds to the user_occasionId and set its value as the date.
 
   postFriendOccasions = () => {
+    let promises = []
     this.state.friendOccasions.forEach((friendOcc) => {
       let userOcc = this.props.userOccasions.find(occ =>
         occ.occasionId === friendOcc
@@ -72,8 +75,9 @@ export default class FriendForm extends Component {
           giftStatus: 0
         }
       }
-      return API.saveData(`friend_occasions`, obj)
+      promises.push(API.saveData(`friend_occasions`, obj))
     })
+    return Promise.all(promises)
   }
 
   render() {

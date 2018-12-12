@@ -49,6 +49,7 @@ export default class EditFriendForm extends Component {
   //function iterates over addOccasions-- if it's a group holiday, use the date on the occasion table. If not, find key in state that corresponds to the user_occasionId and set its value as the date.
 
   postNewOccasions = () => {
+    let promises = []
     this.state.addOccasions.forEach((friendOcc) => {
       let userOcc = this.props.userOccasions.find(occ =>
         occ.occasionId === friendOcc
@@ -70,9 +71,10 @@ export default class EditFriendForm extends Component {
           giftStatus: 0
         }
       }
-      return API.saveData(`friend_occasions`, obj)
+      promises.push(API.saveData(`friend_occasions`, obj))
 
     })
+    return Promise.all(promises)
   }
 
   //function that iterates over removeOccasions (which contains friend_occasionIds) and deletes each

@@ -38,6 +38,7 @@ export default class Friends extends Component {
       .then((friendOccasions) => this.setState({ friendOccasions: friendOccasions, isLoaded: true }))
   }
 
+
   //this function will get all user occasions expanded with the occasion details , then set state in this component
   getUserOccasions = (currentUser) => {
     return API.getData(`user_occasions?userId=${currentUser}&_expand=occasion`)
