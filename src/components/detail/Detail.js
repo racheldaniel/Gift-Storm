@@ -27,6 +27,7 @@ export default class FriendDetail extends Component {
     interestModal: false,
     editInterestModal: false,
     editGiftModal: false,
+    editPurchasedModal: false,
     giftModal: false
   }
   //function fetches this friend's occasions and corresponding gifts with user-occasion entity embedded. This can be used to find image from occasion array
@@ -84,9 +85,12 @@ export default class FriendDetail extends Component {
     return API.deleteData(`gifts`, id)
   }
 
+
   editFriendInterest = (obj, id) => {
     return API.editData(`friend_interests`, obj, id)
   }
+
+
   editFriendGift = (obj, id) => {
     return API.editData(`friend_giftIdeas`, obj, id)
   }
@@ -94,6 +98,7 @@ export default class FriendDetail extends Component {
   currentlyEditing = (id) => {
     return this.setState({ currentlyEditing: id })
   }
+
 
   componentDidMount() {
     this.getUserOccasions(this.props.currentUser)
@@ -122,12 +127,14 @@ export default class FriendDetail extends Component {
     })
   }
 
-  toggleEditGift = (gift) => {
+  toggleEditGiftIdea = (giftIdea) => {
     this.setState({
       editGiftModal: !this.state.editGiftModal,
-      currentlyEditing: gift
+      currentlyEditing: giftIdea
     })
   }
+
+
 
   toggleGiftStatus = (giftStatus, id) => {
     let obj = {}
@@ -136,12 +143,12 @@ export default class FriendDetail extends Component {
         giftStatus: 1
       }
     } else {
-      obj= {
+      obj = {
         giftStatus: 0
       }
     }
-   return API.editData(`friend_occasions`, obj, id)
-    .then(()=> this.findFriendGifts())
+    return API.editData(`friend_occasions`, obj, id)
+      .then(() => this.findFriendGifts())
   }
 
   render() {
@@ -190,7 +197,7 @@ export default class FriendDetail extends Component {
                               key={giftIdea.id}
                               giftIdea={giftIdea}
                               deleteFriendGiftIdea={this.deleteFriendGiftIdea}
-                              toggleEditGift={this.toggleEditGift}
+                              toggleEditGiftIdea={this.toggleEditGiftIdea}
                               findFriendGiftIdeas={this.findFriendGiftIdeas}
                             />
                           )
@@ -215,8 +222,9 @@ export default class FriendDetail extends Component {
                       userOccasions={this.state.userOccasions}
                       friendOccGifts={this.state.friendOccGifts}
                       toggleGiftStatus={this.toggleGiftStatus}
-                      deleteFriendGift={this.deleteFriendGift}
                       findFriendGifts={this.findFriendGifts}
+                      findFriendGiftIdeas={this.findFriendGiftIdeas}
+                      deleteFriendGift={this.deleteFriendGift}
                     />
                   )
                 }
@@ -256,14 +264,14 @@ export default class FriendDetail extends Component {
           friend={friend}
           userOccasions={this.state.userOccasions}
           friendOccGifts={this.state.friendOccGifts}
-          toggleEditGift={this.toggleEditGift}
+          toggleEditGiftIdea={this.toggleEditGiftIdea}
           editGiftModal={this.state.editGiftModal}
           findFriendGiftIdeas={this.findFriendGiftIdeas}
           findFriendGifts={this.findFriendGifts}
           currentlyEditing={this.state.currentlyEditing}
           savePurchasedGift={this.savePurchasedGift}
-          deleteFriendGift={this.deleteFriendGift}
-          editFriendGift={this.editFriendGift}
+          deleteFriendGiftIdea={this.deleteFriendGiftIdea}
+          editFriendGiftIdea={this.editFriendGiftIdea}
         />
 
       </React.Fragment>

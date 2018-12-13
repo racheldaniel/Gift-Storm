@@ -39,8 +39,11 @@ export default class DetailCelebrations extends Component {
                     <DetailPurchased
                       key={gift.id}
                       gift={gift}
+                      userOcc={userOcc}
+                      friendOcc={this.props.friendOcc}
                       deleteFriendGift={this.props.deleteFriendGift}
                       findFriendGifts={this.props.findFriendGifts}
+                      findFriendGiftIdeas={this.props.findFriendGiftIdeas}
                     />
                   )
                 }
