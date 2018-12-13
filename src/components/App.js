@@ -6,6 +6,7 @@ import Friends from "./friends/Friends"
 import FriendDetail from "./detail/Detail"
 import API from "./../modules/API/API"
 import Occasion from "./occasion/Occasion"
+import Profile from "./profile/Profile"
 
 
 export default class App extends Component {
@@ -48,6 +49,12 @@ export default class App extends Component {
         <Route exact path="/friends" render={(props) => {
 
           return <Friends {...props}
+            currentUser={this.props.currentUser}
+          />
+        }} />
+        <Route path="/profile" render={(props) => {
+
+          return <Profile {...props}
             currentUser={this.props.currentUser}
           />
         }} />

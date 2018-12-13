@@ -9,7 +9,7 @@ export default class EditFormUntracked extends Component {
         <FormGroup check>
           <Label htmlFor={this.props.userOcc.occasion.name} check>
             <Input type="checkbox" value={this.props.userOcc.occasion.name} onClick={(() =>
-                this.props.onAddCheckboxClick(this.props.userOcc.id))} />{' '}
+                this.props.onAddCheckboxClick(this.props.userOcc.occasionId))} />{' '}
             {this.props.userOcc.occasion.name}
               </Label>
         </FormGroup>
