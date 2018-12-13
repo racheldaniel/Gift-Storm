@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { ListGroupItem, ListGroupItemHeading, Row, Col } from 'reactstrap';
 import inProgress from "./../../images/inProgress.png"
 import complete from "./../../images/complete.png"
+import moment from 'moment'
 
 export default class LandingItem extends Component {
   render() {
@@ -34,7 +35,7 @@ export default class LandingItem extends Component {
             </Col>
             <Col xs={3} className="d-flex align-items-center text-center" >
 
-              <ListGroupItemHeading>{this.props.friendOcc.date}</ListGroupItemHeading>
+              <ListGroupItemHeading>{moment(this.props.friendOcc.date).format("MMM Do")}</ListGroupItemHeading>
             </Col>
             <Col xs={3} className="text-center my-auto">
               {

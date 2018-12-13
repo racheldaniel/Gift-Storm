@@ -3,19 +3,44 @@ import { Container } from 'reactstrap';
 import LandingList from "./LandingList"
 import "./Landing.css"
 import API from "./../../modules/API/API"
+import moment from "moment"
 
 export default class Landing extends Component {
   state = {
     friendOccasions: [],
     userOccasions: [],
     friends: [],
-    isLoaded: false
+    isLoaded: false,
+    currentDate: ""
   }
-  //this function will get all friend occasions in ascending order
+
+  setCurrentDate = () => {
+    let currentDate = new Date()
+    return this.setState({ currentDate: moment(currentDate).format('l') })
+  }
+
+  //this function will get all friend occasions, then change the date to reflect current or upcoming year depending on whether the date has already passed. Method to reset date pulled from the following post: https://stackoverflow.com/a/20409421
+
   getFriendOccasions = (currentUser) => {
-    return API.getData(`friend_occasions?userId=${currentUser}&_embed=gifts&_sort=date&_order=asc`)
-      .then((friendOccasions) => this.setState({ friendOccasions: friendOccasions }))
+    return API.getData(`friend_occasions?userId=${currentUser}&_embed=gifts`)
+      .then((friendOccasions) => {
+        friendOccasions.forEach((friendOcc)=> {
+          let date = friendOcc.date.split("-")
+          let currentYear = new Date().getFullYear()
+          let newDate = new Date(currentYear, date[1] - 1, date[2])
+          let today = new Date().valueOf()
+          if(newDate.valueOf() < today){
+            newDate.setFullYear(currentYear + 1)
+          }
+          friendOcc.date = newDate
+        })
+        friendOccasions.sort((a, b) => a.date - b.date)
+        console.log(friendOccasions)
+        this.setState({ friendOccasions: friendOccasions })
+      })
   }
+
+
 
   //this function will get all friends for current user
   getFriends = (currentUser) => {
@@ -86,6 +111,7 @@ export default class Landing extends Component {
       .then(() => this.getFriends(this.props.currentUser))
       .then(() => this.getUserOccasions(this.props.currentUser))
       .then(() => this.setUserOccasionState())
+      .then(() => this.setCurrentDate())
       .then(() => this.findUniqueOccasions())
 
   }

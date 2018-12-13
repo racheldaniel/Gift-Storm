@@ -6,7 +6,7 @@ import {
 import complete from "./../../images/complete.png"
 import inProgress from "./../../images/inProgress.png"
 import DetailPurchased from "./DetailPurchased"
-
+import moment from 'moment'
 
 export default class DetailCelebrations extends Component {
   render() {
@@ -27,11 +27,11 @@ export default class DetailCelebrations extends Component {
               }
 
             </Col>
-            <Col xs={1} className="d-flex align-items-center text-center" >
+            <Col xs={2} className="d-flex align-items-center text-center" >
 
-              <ListGroupItemHeading>{this.props.friendOcc.date}</ListGroupItemHeading>
+              <ListGroupItemHeading>{moment(this.props.friendOcc.date).format("MMM Do")}</ListGroupItemHeading>
             </Col>
-            <Col xs={5} className="d-flex align-items-center text-center" >
+            <Col xs={4} className="d-flex align-items-center text-center" >
               <ListGroup className="detailCard--ul">
                 <ListGroupItemHeading>Purchased:</ListGroupItemHeading>
                   {
