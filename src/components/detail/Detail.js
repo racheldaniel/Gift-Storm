@@ -125,6 +125,21 @@ export default class FriendDetail extends Component {
     })
   }
 
+  toggleGiftStatus = (giftStatus, id) => {
+    let obj = {}
+    if (giftStatus === 0) {
+      obj = {
+        giftStatus: 1
+      }
+    } else {
+      obj= {
+        giftStatus: 0
+      }
+    }
+   return API.editData(`friend_occasions`, obj, id)
+    .then(()=> this.findFriendGifts())
+  }
+
   render() {
     const friend = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)) || {}
 
@@ -195,6 +210,7 @@ export default class FriendDetail extends Component {
                       friendDetail={this.state.friendDetail}
                       userOccasions={this.state.userOccasions}
                       friendOccGifts={this.state.friendOccGifts}
+                      toggleGiftStatus={this.toggleGiftStatus}
                     />
                   )
                 }

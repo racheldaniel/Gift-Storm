@@ -3,7 +3,7 @@ import { Container } from 'reactstrap';
 import OccasionList from "./OccasionList"
 import API from "../../modules/API/API"
 import "./Occasion.css"
-
+import moment from 'moment'
 export default class Occasion extends Component {
   state = {
     friendOccasions: [],
@@ -30,7 +30,7 @@ export default class Occasion extends Component {
           (this.state.isLoaded === true)
             ? <Container>
               <h1 className="text-center text-info my-5">{`${userOcc.occasion.name} Gift List`}</h1>
-              <h5 className="text-center text-info my-3">{userOcc.occasion.date}</h5>
+              <h4 className="text-center text-info my-3">{moment(userOcc.occasion.date).format("MMMM Do")}</h4>
               <OccasionList
                 friends={this.props.friends}
                 userOccasions={this.props.userOccasions}

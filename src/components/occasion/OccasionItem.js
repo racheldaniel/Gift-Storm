@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import { ListGroupItem, ListGroupItemHeading, Row, Col, ListGroup } from 'reactstrap';
 import inProgress from "./../../images/inProgress.png"
+import complete from "./../../images/complete.png"
 import OccasionGift from "./OccasionGift"
 
 export default class OccasionItem extends Component {
@@ -32,7 +33,13 @@ export default class OccasionItem extends Component {
               </ListGroup>
             </Col>
             <Col xs={2} className="text-center my-auto">
-            <img src={inProgress} alt="inProgress" className="img-thumbnail" />
+            {
+                ( this.props.friendOcc.giftStatus === 1)
+                ? <img src={complete} alt="complete"  />
+                : ( this.props.friendOcc.giftStatus === 0 && this.props.friendOcc.gifts.length > 0)
+                ? <img src={inProgress} alt="inProgress"  />
+                : null
+              }
               <Link className="nav-link" to={`/friends/${this.props.friendOcc.friendId}`}>Details</Link>
             </Col>
           </Row>

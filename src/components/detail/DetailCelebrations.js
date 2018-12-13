@@ -4,8 +4,9 @@ import {
   ListGroupItemHeading, FormGroup, Label, Input
 } from 'reactstrap';
 import complete from "./../../images/complete.png"
+import inProgress from "./../../images/inProgress.png"
 import DetailPurchased from "./DetailPurchased"
-
+import moment from 'moment'
 
 export default class DetailCelebrations extends Component {
   render() {
@@ -26,11 +27,11 @@ export default class DetailCelebrations extends Component {
               }
 
             </Col>
-            <Col xs={1} className="d-flex align-items-center text-center" >
+            <Col xs={2} className="d-flex align-items-center text-center" >
 
-              <ListGroupItemHeading>{this.props.friendOcc.date}</ListGroupItemHeading>
+              <ListGroupItemHeading>{moment(this.props.friendOcc.date).format("MMM Do")}</ListGroupItemHeading>
             </Col>
-            <Col xs={5} className="d-flex align-items-center text-center" >
+            <Col xs={4} className="d-flex align-items-center text-center" >
               <ListGroup className="detailCard--ul">
                 <ListGroupItemHeading>Purchased:</ListGroupItemHeading>
                   {
@@ -45,13 +46,27 @@ export default class DetailCelebrations extends Component {
               </ListGroup>
               <FormGroup check>
                 <Label check>
-                  <Input type="checkbox" />{' '}
+                  <Input type="checkbox" onClick={()=> this.props.toggleGiftStatus(this.props.friendOcc.giftStatus, this.props.friendOcc.id)}
+                  defaultChecked=
+                  {
+                    (this.props.friendOcc.giftStatus === 1)
+                    ? true
+                    : null
+                  }
+                  />{' '}
                   Complete
                   </Label>
               </FormGroup>
             </Col>
             <Col xs={2} className=" my-auto text-center">
-              <img src={complete} alt="Complete" />
+                {
+                  (this.props.friendOcc.giftStatus === 1)
+                  ? <img src={complete} alt="Complete"  />
+                  : (this.props.friendOcc.giftStatus === 0 && this.props.friendOcc.gifts.length > 0)
+                  ?  <img src={inProgress} alt="inProgress"  />
+                  : null
+                }
+
             </Col>
           </Row>
         </ListGroupItem>

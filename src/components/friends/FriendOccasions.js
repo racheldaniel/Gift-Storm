@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ListGroupItemText, Col } from 'reactstrap';
-
+import moment from 'moment'
 
 export default class FriendOccasions extends Component {
 
@@ -17,7 +17,7 @@ export default class FriendOccasions extends Component {
 
           alt={userOcc.occasion.name} />
           <h5>{userOcc.occasion.name}</h5>
-          <ListGroupItemText>{this.props.friend_occasion.date}</ListGroupItemText>
+          <ListGroupItemText>{moment(this.props.friend_occasion.date).format("MMM Do")}</ListGroupItemText>
         </Col>
       </React.Fragment>
 
