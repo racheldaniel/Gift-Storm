@@ -24,7 +24,7 @@ export default class Landing extends Component {
   getFriendOccasions = (currentUser) => {
     return API.getData(`friend_occasions?userId=${currentUser}&_embed=gifts`)
       .then((friendOccasions) => {
-        friendOccasions.forEach((friendOcc)=> {
+        friendOccasions.forEach((friendOcc, i)=> {
           let date = friendOcc.date.split("-")
           let currentYear = new Date().getFullYear()
           let newDate = new Date(currentYear, date[1] - 1, date[2])
@@ -33,9 +33,9 @@ export default class Landing extends Component {
             newDate.setFullYear(currentYear + 1)
           }
           friendOcc.date = newDate
+
         })
         friendOccasions.sort((a, b) => a.date - b.date)
-        console.log(friendOccasions)
         this.setState({ friendOccasions: friendOccasions })
       })
   }
@@ -86,7 +86,7 @@ export default class Landing extends Component {
   }
 
 
-  // Function iterates over friendOccasions and returns an array containing only those with unique user_occasion Id's-- this
+  // Function iterates over friendOccasions and returns an array containing only those with unique user_occasion Id's
   findUniqueOccasions = () => {
     let uniqueOccasions = []
     this.state.friendOccasions.forEach((friendOcc) => {

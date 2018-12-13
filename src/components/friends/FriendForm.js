@@ -57,7 +57,7 @@ export default class FriendForm extends Component {
       let userOcc = this.props.userOccasions.find(occ =>
         occ.occasionId === friendOcc
       )
-      console.log(userOcc)
+      console.log(friendOcc, userOcc, this.props.userOccasions)
       let obj
       if (userOcc.occasion.groupHoliday === "1") {
         obj = {
@@ -90,7 +90,6 @@ export default class FriendForm extends Component {
               .then(() => this.postFriendOccasions())
               .then(()=> this.props.getFriendOccasions(this.props.currentUser))
               .then(()=> this.props.getUserOccasions(this.props.currentUser))
-              //TODO: render still isn't happening fast enough
               .then(()=> this.props.toggleAdd())
 
           }

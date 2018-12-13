@@ -9,7 +9,7 @@ export default class FriendFormOptions extends Component {
         <FormGroup check>
           <Label htmlFor={this.props.occ.occasion.name} check>
             <Input type="checkbox" value={this.props.occ.occasion.name} onClick={(() =>
-                this.props.onCheckboxClick(this.props.occ.id))} />{' '}
+                this.props.onCheckboxClick(this.props.occ.occasionId))} />{' '}
             {this.props.occ.occasion.name}
               </Label>
         </FormGroup>
