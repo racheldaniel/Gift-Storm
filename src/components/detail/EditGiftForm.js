@@ -25,7 +25,7 @@ export default class EditGiftForm extends Component {
       friendId: this.props.friend.id,
       giftIdea: this.state.giftIdea
     }
-    return this.props.editFriendGift(obj, id)
+    return this.props.editFriendGiftIdea(obj, id)
       .then(() => this.props.findFriendGiftIdeas())
 
   }
@@ -62,7 +62,7 @@ export default class EditGiftForm extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.props.editGiftModal} toggleEditGift={this.props.toggleEditGift} className={this.props.className} >
+      <Modal isOpen={this.props.editGiftModal} toggle={this.props.toggleEditGiftIdea} className={this.props.className} >
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -81,17 +81,17 @@ export default class EditGiftForm extends Component {
               } else {
                 let id = this.props.currentlyEditing.id
                 this.setState({ purchased: false })
-                this.props.deleteFriendGift(id)
+                this.props.deleteFriendGiftIdea(id)
 
                   .then(() => this.submitPurchasedGift())
 
-                this.props.toggleEditGift("")
+                this.props.toggleEditGiftIdea("")
               }
             }
           }}
 
         >
-          <ModalHeader toggleEditInterest={this.props.toggleInterest}>Edit Gift Idea</ModalHeader>
+          <ModalHeader toggle={this.props.toggleEditGiftIdea}>Edit Gift Idea</ModalHeader>
           <ModalBody id="editGiftForm">
             <FormGroup>
               <Input type="text" name="giftIdea" id="giftIdea" required autoFocus
@@ -134,7 +134,10 @@ export default class EditGiftForm extends Component {
           <ModalFooter>
             <Button color="primary" onSubmit={() => { }} >Save</Button>
             <Button color="light" onClick={(e) => {
-              this.props.toggleEditGift("")
+              this.props.toggleEditGiftIdea("")
+              if(this.state.purchased === true){
+                this.setState({purchased: false})
+              }
             }}
             >Cancel</Button>
           </ModalFooter>

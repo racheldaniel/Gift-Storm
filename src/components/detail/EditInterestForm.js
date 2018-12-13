@@ -42,12 +42,6 @@ export default class EditInterestForm extends Component {
             <FormGroup>
               <Input type="text" name="interest" id="interest" onChange={this.handleFieldChange} required defaultValue={this.props.currentlyEditing.interest} />
             </FormGroup>
-            <FormGroup check>
-              <Label htmlFor="purchased" check>
-                <Input type="checkbox" value="purchased" />{' '}
-                Purchased?
-              </Label>
-            </FormGroup>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onSubmit={() => { }} >Save</Button>

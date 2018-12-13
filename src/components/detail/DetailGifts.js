@@ -15,11 +15,11 @@ export default class DetailGifts extends Component {
           {
             (this.state.hover === true)
             ? <div><i className="icon-pencil float-right "onClick={() => {
-              this.props.toggleEditGift(this.props.giftIdea)
+              this.props.toggleEditGiftIdea(this.props.giftIdea)
             }
             }></i>
             <i className="icon-trash float-right mx-2 " onClick={() => {
-              this.props.deleteFriendGift(this.props.giftIdea.id)
+              this.props.deleteFriendGiftIdea(this.props.giftIdea.id)
               .then(()=> this.props.findFriendGiftIdeas())
             }
             }></i>
