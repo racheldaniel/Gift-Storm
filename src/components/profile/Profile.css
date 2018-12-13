@@ -1,0 +1,11 @@
+#editProfile {
+  max-width: 30%;
+  margin: 0 auto;
+  background-color: #BFACAA;
+  border: 1px solid #01172F;
+  padding: 15px
+}
+
+#saveProfile {
+  margin-top: 25px
+}
