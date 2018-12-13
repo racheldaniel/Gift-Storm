@@ -76,8 +76,12 @@ export default class FriendDetail extends Component {
     return API.deleteData(`friend_interests`, id)
   }
 
-  deleteFriendGift = (id) => {
+  deleteFriendGiftIdea = (id) => {
     return API.deleteData(`friend_giftIdeas`, id)
+  }
+
+  deleteFriendGift = (id) => {
+    return API.deleteData(`gifts`, id)
   }
 
   editFriendInterest = (obj, id) => {
@@ -185,7 +189,7 @@ export default class FriendDetail extends Component {
                             <DetailGifts
                               key={giftIdea.id}
                               giftIdea={giftIdea}
-                              deleteFriendGift={this.deleteFriendGift}
+                              deleteFriendGiftIdea={this.deleteFriendGiftIdea}
                               toggleEditGift={this.toggleEditGift}
                               findFriendGiftIdeas={this.findFriendGiftIdeas}
                             />
@@ -211,6 +215,8 @@ export default class FriendDetail extends Component {
                       userOccasions={this.state.userOccasions}
                       friendOccGifts={this.state.friendOccGifts}
                       toggleGiftStatus={this.toggleGiftStatus}
+                      deleteFriendGift={this.deleteFriendGift}
+                      findFriendGifts={this.findFriendGifts}
                     />
                   )
                 }

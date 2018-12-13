@@ -19,7 +19,7 @@ export default class DetailGifts extends Component {
             }
             }></i>
             <i className="icon-trash float-right mx-2 " onClick={() => {
-              this.props.deleteFriendGift(this.props.giftIdea.id)
+              this.props.deleteFriendGiftIdea(this.props.giftIdea.id)
               .then(()=> this.props.findFriendGiftIdeas())
             }
             }></i>
