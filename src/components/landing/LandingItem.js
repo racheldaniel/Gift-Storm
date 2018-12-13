@@ -8,7 +8,7 @@ import moment from 'moment'
 export default class LandingItem extends Component {
   render() {
     let userOcc = this.props.userOccasions.find(occ =>
-      occ.occasionId === this.props.friendOcc.user_occasionId
+      occ.id === this.props.friendOcc.user_occasionId
     )
 
     let friend = this.props.friends.find(friend =>
@@ -18,6 +18,11 @@ export default class LandingItem extends Component {
     let status = this.props.statuses.find(status =>
       status[`${userOcc.id}`]
       )
+
+    let gifts = this.props.occasionGifts.find(occasion =>
+        occasion.id === this.props.friendOcc.id).gifts
+
+      console.log(gifts)
 
     return (
       <React.Fragment>
@@ -42,7 +47,7 @@ export default class LandingItem extends Component {
                 (userOcc.occasion.groupHoliday === "0" && this.props.friendOcc.giftStatus === 1)
                 ||(userOcc.occasion.groupHoliday === "1" && status[`${userOcc.id}`] === "complete")
                 ? <img src={complete} alt="complete"  />
-                : (userOcc.occasion.groupHoliday === "0" && this.props.friendOcc.giftStatus === 0 && this.props.friendOcc.gifts.length > 0)
+                : (userOcc.occasion.groupHoliday === "0" && this.props.friendOcc.giftStatus === 0 &&  gifts.length > 0)
                 ||(userOcc.occasion.groupHoliday === "1" && status[`${userOcc.id}`] === "inProgress")
                 ? <img src={inProgress} alt="inProgress"  />
                 : null

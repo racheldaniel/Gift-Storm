@@ -17,7 +17,6 @@ export default class Friends extends Component {
     notTracking: []
   }
   toggleAdd = (e) => {
-
     return this.setState({
       addModal: !this.state.addModal,
     })

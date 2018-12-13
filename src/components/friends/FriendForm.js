@@ -55,7 +55,7 @@ export default class FriendForm extends Component {
     let promises = []
     this.state.friendOccasions.forEach((friendOcc) => {
       let userOcc = this.props.userOccasions.find(occ =>
-        occ.occasionId === friendOcc
+        occ.id === friendOcc
       )
       console.log(friendOcc, userOcc, this.props.userOccasions)
       let obj

@@ -34,13 +34,14 @@ export default class EditGiftForm extends Component {
   submitPurchasedGift = () => {
 
     //this part of the function uses the name of the occasion selected from the dropdown by the user, looks up that occasion ID, then finds the ID of the corresponding friend_occasion entity.
-    let occasionId = this.props.userOccasions.find(occ =>
+    let userOccId = this.props.userOccasions.find(occ =>
       occ.occasion.name === this.state.occasionName
-    ).occasionId
+    ).id
     let friendId = this.props.friend.id
     let friend_occasionId
+    console.log(userOccId, friendId, this.props.friendOccGifts)
     this.props.friendOccGifts.forEach((occ) => {
-      if (occ.user_occasionId === occasionId && occ.friendId === friendId) {
+      if (occ.user_occasionId === userOccId && occ.friendId === friendId) {
         friend_occasionId = occ.id
       }
     })

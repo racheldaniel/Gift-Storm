@@ -5,7 +5,7 @@ import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Col, FormG
 export default class EditFormTracked extends Component {
   render() {
     let userOcc = this.props.userOccasions.find(occ =>
-      occ.occasionId === this.props.friendOcc.user_occasionId
+      occ.id === this.props.friendOcc.user_occasionId
     )
     return (
       <ListGroupItem>

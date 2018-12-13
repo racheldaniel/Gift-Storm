@@ -12,6 +12,8 @@ export default class LandingList extends Component{
           key={friendOcc.id}
           friendOcc={friendOcc}
           friends={this.props.friends}
+          occasionGifts= {this.props.occasionGifts}
+          friendOccasions={this.props.friendOccasions}
           uniqueFriendOccs={this.props.uniqueFriendOccs}
           userOccasions={this.props.userOccasions}
           statuses={this.props.statuses}
