@@ -218,6 +218,45 @@ export default class Profile extends Component {
                     Boss's Day
                 </Label>
                 </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" onClick={(() => this.onCheckboxClick(8))}
+                      defaultChecked=
+                      {
+                        (this.state.occasionIds.includes(8))
+                          ? true
+                          : null
+                      }
+                    />{' '}
+                    Hanukkah
+                </Label>
+                </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" onClick={(() => this.onCheckboxClick(9))}
+                      defaultChecked=
+                      {
+                        (this.state.occasionIds.includes(9))
+                          ? true
+                          : null
+                      }
+                    />{' '}
+                    Galentine's Day
+                </Label>
+                </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" onClick={(() => this.onCheckboxClick(10))}
+                      defaultChecked=
+                      {
+                        (this.state.occasionIds.includes(10))
+                          ? true
+                          : null
+                      }
+                    />{' '}
+                    Misc
+                </Label>
+                </FormGroup>
               </div>
               <div className="text-center"><Button color="primary" id="saveProfile">Save Changes</Button></div>
             </Form>

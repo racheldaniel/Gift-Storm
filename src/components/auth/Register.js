@@ -128,6 +128,24 @@ export default class FriendForm extends Component {
                   Boss's Day
               </Label>
               </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input type="checkbox" onClick={(() => this.onCheckboxClick(8))} />{' '}
+                  Hanukkah
+              </Label>
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input type="checkbox" onClick={(() => this.onCheckboxClick(9))} />{' '}
+                  Galentine's Day
+              </Label>
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input type="checkbox" onClick={(() => this.onCheckboxClick(10))} />{' '}
+                  Misc
+              </Label>
+              </FormGroup>
             </div>
 
 
