@@ -50,6 +50,7 @@ export default class App extends Component {
 
           return <Friends {...props}
             currentUser={this.props.currentUser}
+            findFriends={this.findFriends}
           />
         }} />
         <Route path="/profile" render={(props) => {

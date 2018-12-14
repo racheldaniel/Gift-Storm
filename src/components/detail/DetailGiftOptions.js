@@ -9,7 +9,7 @@ export default class DetailGiftOptions extends Component {
     return (
       <React.Fragment>
         <option id={this.props.friendOcc.id}>{this.props.userOccasions.find(occ =>
-          occ.occasionId === this.props.friendOcc.user_occasionId
+          occ.id === this.props.friendOcc.user_occasionId
         ).occasion.name}</option>
       </React.Fragment>
     )

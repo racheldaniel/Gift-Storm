@@ -54,24 +54,24 @@ export default class EditFriendForm extends Component {
 
   postNewOccasions = () => {
     let promises = []
-    this.state.addOccasions.forEach((friendOcc) => {
+    this.state.addOccasions.forEach((occId) => {
 
       let userOcc = this.props.userOccasions.find(occ =>
-        occ.occasionId === friendOcc
+        occ.occasionId === occId
       )
-      console.log(friendOcc, userOcc, this.props.userOccasions)
+      console.log(occId, userOcc, this.props.userOccasions)
       let obj
       if (userOcc.occasion.groupHoliday === "1") {
         obj = {
-          user_occasionId: friendOcc,
+          user_occasionId: userOcc.id,
           date: userOcc.occasion.date,
           friendId: this.props.currentlyEditing.id,
           giftStatus: 0
         }
       } else {
-        let date = this.state[`${friendOcc}`]
+        let date = this.state[`${occId}`]
         obj = {
-          user_occasionId: friendOcc,
+          user_occasionId: userOcc.id,
           date: date,
           friendId: this.props.currentlyEditing.id,
           giftStatus: 0

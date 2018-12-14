@@ -16,7 +16,7 @@ export default class EditFormUntracked extends Component {
         {
           (this.props.userOcc.occasion.groupHoliday === "0")
             ? <FormGroup>
-              <Input type="date" defaultValue="Date" id={this.props.userOcc.id} onChange={((e) =>
+              <Input type="date" defaultValue="Date" id={this.props.userOcc.occasionId} onChange={((e) =>
                 this.props.handleFieldChange(e))}
                 />{' '}
             </FormGroup>

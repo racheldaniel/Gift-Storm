@@ -7,9 +7,9 @@ export default class FriendOccasions extends Component {
 
   render() {
     let userOcc = this.props.userOccasions.find(occ =>
-      occ.occasionId === this.props.friend_occasion.user_occasionId
+      occ.id === this.props.friend_occasion.user_occasionId
     )
-
+      console.log(this.props.userOccasions, this.props.friend_occasion)
     return (
       <React.Fragment>
         <Col className="text-center" >

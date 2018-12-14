@@ -8,9 +8,10 @@ import moment from "moment"
 export default class Landing extends Component {
   state = {
     friendOccasions: [],
+    occasionGifts: [],
     userOccasions: [],
-    friends: [],
     isLoaded: false,
+    uniqueFriendOccs: [],
     currentDate: ""
   }
 
@@ -21,9 +22,25 @@ export default class Landing extends Component {
 
   //this function will get all friend occasions, then change the date to reflect current or upcoming year depending on whether the date has already passed. Method to reset date pulled from the following post: https://stackoverflow.com/a/20409421
 
+  getOccasionGifts = () => {
+    return API.getData(`friend_occasions?_embed=gifts`)
+      .then((occasionGifts) =>
+        this.setState({ occasionGifts: occasionGifts })
+      )
+  }
+
+
+
+  //this function will get all friends for current user
   getFriendOccasions = (currentUser) => {
-    return API.getData(`friend_occasions?userId=${currentUser}&_embed=gifts`)
-      .then((friendOccasions) => {
+    return API.getData(`friends?userId=${currentUser}&_embed=friend_occasions`)
+      .then((friends) => {
+        let friendOccasions = []
+        friends.forEach((friend) => {
+          friend.friend_occasions.forEach((friendOcc) => {
+            friendOccasions.push(friendOcc)
+          })
+        })
         friendOccasions.forEach((friendOcc)=> {
           let date = friendOcc.date.split("-")
           let currentYear = new Date().getFullYear()
@@ -35,18 +52,10 @@ export default class Landing extends Component {
           friendOcc.date = newDate
         })
         friendOccasions.sort((a, b) => a.date - b.date)
-        console.log(friendOccasions)
-        this.setState({ friendOccasions: friendOccasions })
+        this.setState({ friendOccasions: friendOccasions, friends: friends })
       })
   }
 
-
-
-  //this function will get all friends for current user
-  getFriends = (currentUser) => {
-    return API.getData(`friends?userId=${currentUser}`)
-      .then((friends) => this.setState({ friends: friends }))
-  }
   //this function will get all user occasions expanded with the occasion details , then set state in this component
   getUserOccasions = (currentUser) => {
     return API.getData(`user_occasions?userId=${currentUser}&_expand=occasion`)
@@ -63,7 +72,8 @@ export default class Landing extends Component {
     this.state.userOccasions.forEach((userOcc) => {
       let count = 0
       let obj = {}
-      let friendOccs = this.state.friendOccasions.filter(friendOcc =>
+
+      let friendOccs = this.state.occasionGifts.filter(friendOcc =>
         friendOcc.user_occasionId === userOcc.id
       )
       friendOccs.forEach((friendOcc) => {
@@ -82,11 +92,12 @@ export default class Landing extends Component {
       statuses.push(obj)
 
     })
+
     return this.setState({statuses: statuses})
   }
 
 
-  // Function iterates over friendOccasions and returns an array containing only those with unique user_occasion Id's-- this
+  // Function iterates over friendOccasions and returns an array containing only those with unique user_occasion Id's
   findUniqueOccasions = () => {
     let uniqueOccasions = []
     this.state.friendOccasions.forEach((friendOcc) => {
@@ -108,7 +119,7 @@ export default class Landing extends Component {
 
   componentDidMount() {
     this.getFriendOccasions(this.props.currentUser)
-      .then(() => this.getFriends(this.props.currentUser))
+      .then(() => this.getOccasionGifts())
       .then(() => this.getUserOccasions(this.props.currentUser))
       .then(() => this.setUserOccasionState())
       .then(() => this.setCurrentDate())
@@ -117,6 +128,7 @@ export default class Landing extends Component {
   }
 
   render() {
+
     return (
       <React.Fragment>
         {
@@ -124,7 +136,9 @@ export default class Landing extends Component {
             ? <Container>
               <h1 className="text-center text-info my-5">Upcoming Celebrations</h1>
               <LandingList
-                friends={this.state.friends}
+                occasionGifts={this.state.occasionGifts}
+                friendOccasions={this.state.friendOccasions}
+                friends= {this.state.friends}
                 uniqueFriendOccs={this.state.uniqueFriendOccs}
                 userOccasions={this.state.userOccasions}
                 statuses={this.state.statuses}

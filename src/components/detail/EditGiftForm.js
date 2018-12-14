@@ -34,13 +34,14 @@ export default class EditGiftForm extends Component {
   submitPurchasedGift = () => {
 
     //this part of the function uses the name of the occasion selected from the dropdown by the user, looks up that occasion ID, then finds the ID of the corresponding friend_occasion entity.
-    let occasionId = this.props.userOccasions.find(occ =>
+    let userOccId = this.props.userOccasions.find(occ =>
       occ.occasion.name === this.state.occasionName
-    ).occasionId
+    ).id
     let friendId = this.props.friend.id
     let friend_occasionId
+    console.log(userOccId, friendId, this.props.friendOccGifts)
     this.props.friendOccGifts.forEach((occ) => {
-      if (occ.user_occasionId === occasionId && occ.friendId === friendId) {
+      if (occ.user_occasionId === userOccId && occ.friendId === friendId) {
         friend_occasionId = occ.id
       }
     })
@@ -66,15 +67,15 @@ export default class EditGiftForm extends Component {
         <form
           onSubmit={(e) => {
             e.preventDefault()
-          /*if the purchased is false in the state of this component, execute the edit gift (patch) function.
+            /*if the purchased is false in the state of this component, execute the edit gift (patch) function.
 
-          If purchased is true but no occasion has been selected, the user will be alerted.
+            If purchased is true but no occasion has been selected, the user will be alerted.
 
-          Otherwise, if purchased is true, that state will be set back to false, the gift will be removed from the gift idea list and added to the (purchased) gift table */
+            Otherwise, if purchased is true, that state will be set back to false, the gift will be removed from the gift idea list and added to the (purchased) gift table */
 
             if (this.state.purchased === false) {
               this.editGift(e, this.props.currentlyEditing.id)
-              this.props.toggleEditGift("")
+              this.props.toggleEditGiftIdea("")
             } else {
               if (this.state.occasionName === "-Select-" || this.state.occasionName === "") {
                 alert("Please Select an Occasion")
@@ -87,6 +88,9 @@ export default class EditGiftForm extends Component {
 
                 this.props.toggleEditGiftIdea("")
               }
+            }
+            if (this.state.purchased === true) {
+              this.setState({ purchased: false })
             }
           }}
 
@@ -132,11 +136,11 @@ export default class EditGiftForm extends Component {
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onSubmit={() => { }} >Save</Button>
+            <Button color="primary" onSubmit={() => { }}  >Save</Button>
             <Button color="light" onClick={(e) => {
               this.props.toggleEditGiftIdea("")
-              if(this.state.purchased === true){
-                this.setState({purchased: false})
+              if (this.state.purchased === true) {
+                this.setState({ purchased: false })
               }
             }}
             >Cancel</Button>
