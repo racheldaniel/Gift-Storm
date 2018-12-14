@@ -35,8 +35,8 @@ export default class DetailGiftForm extends Component {
     ).occasionId
     let friendId = this.props.friend.id
     let friend_occasionId
-    this.props.friendOccGifts.forEach((occ)=> {
-      if(occ.user_occasionId === occasionId && occ.friendId === friendId) {
+    this.props.friendOccGifts.forEach((occ) => {
+      if (occ.user_occasionId === occasionId && occ.friendId === friendId) {
         friend_occasionId = occ.id
       }
     })
@@ -45,7 +45,7 @@ export default class DetailGiftForm extends Component {
       friend_occasionId: friend_occasionId
     }
     return this.props.savePurchasedGift(obj)
-    .then(() => this.props.findFriendGifts())
+      .then(() => this.props.findFriendGifts())
 
   }
 
@@ -60,17 +60,20 @@ export default class DetailGiftForm extends Component {
           onSubmit={(e) => {
             e.preventDefault()
 
-              if(this.state.purchased === false){
-                this.submitGiftIdea(e)
-                this.props.toggleGift()
+            if (this.state.purchased === false) {
+              this.submitGiftIdea(e)
+              this.props.toggleGift()
+            } else {
+              if (this.state.occasionName === "-Select-" || this.state.occasionName === "") {
+                alert("Please Select an Occasion")
               } else {
-                if (this.state.occasionName === "-Select-" || this.state.occasionName === ""){
-                  alert("Please Select an Occasion")
-                }else {
-                  this.submitPurchasedGift(e)
-                  this.props.toggleGift()
-                }
+                this.submitPurchasedGift(e)
+                this.props.toggleGift()
               }
+            }
+            if (this.state.purchased === true) {
+              this.setState({ purchased: false })
+            }
           }}
         >
           <ModalHeader toggleGift={this.props.toggleGift}>Add a Gift Idea</ModalHeader>
@@ -114,6 +117,9 @@ export default class DetailGiftForm extends Component {
             <Button color="primary" /*onSubmit={() => { }} */>Save</Button>
             <Button color="light" onClick={(e) => {
               this.props.toggleGift()
+              if (this.state.purchased === true) {
+                this.setState({ purchased: false })
+              }
             }}
             >Cancel</Button>
           </ModalFooter>

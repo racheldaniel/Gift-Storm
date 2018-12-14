@@ -90,6 +90,7 @@ export default class FriendForm extends Component {
               .then(() => this.postFriendOccasions())
               .then(()=> this.props.getFriendOccasions(this.props.currentUser))
               .then(()=> this.props.getUserOccasions(this.props.currentUser))
+              .then(() => this.props.findFriends())
               .then(()=> this.props.toggleAdd())
 
           }

@@ -67,15 +67,15 @@ export default class EditGiftForm extends Component {
         <form
           onSubmit={(e) => {
             e.preventDefault()
-          /*if the purchased is false in the state of this component, execute the edit gift (patch) function.
+            /*if the purchased is false in the state of this component, execute the edit gift (patch) function.
 
-          If purchased is true but no occasion has been selected, the user will be alerted.
+            If purchased is true but no occasion has been selected, the user will be alerted.
 
-          Otherwise, if purchased is true, that state will be set back to false, the gift will be removed from the gift idea list and added to the (purchased) gift table */
+            Otherwise, if purchased is true, that state will be set back to false, the gift will be removed from the gift idea list and added to the (purchased) gift table */
 
             if (this.state.purchased === false) {
               this.editGift(e, this.props.currentlyEditing.id)
-              this.props.toggleEditGift("")
+              this.props.toggleEditGiftIdea("")
             } else {
               if (this.state.occasionName === "-Select-" || this.state.occasionName === "") {
                 alert("Please Select an Occasion")
@@ -88,6 +88,9 @@ export default class EditGiftForm extends Component {
 
                 this.props.toggleEditGiftIdea("")
               }
+            }
+            if (this.state.purchased === true) {
+              this.setState({ purchased: false })
             }
           }}
 
@@ -133,11 +136,11 @@ export default class EditGiftForm extends Component {
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onSubmit={() => { }} >Save</Button>
+            <Button color="primary" onSubmit={() => { }}  >Save</Button>
             <Button color="light" onClick={(e) => {
               this.props.toggleEditGiftIdea("")
-              if(this.state.purchased === true){
-                this.setState({purchased: false})
+              if (this.state.purchased === true) {
+                this.setState({ purchased: false })
               }
             }}
             >Cancel</Button>

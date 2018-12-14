@@ -91,13 +91,14 @@ export default class FriendDetail extends Component {
   }
 
 
-  editFriendGift = (obj, id) => {
+  editFriendGiftIdea = (obj, id) => {
     return API.editData(`friend_giftIdeas`, obj, id)
   }
 
   currentlyEditing = (id) => {
     return this.setState({ currentlyEditing: id })
   }
+
 
 
   componentDidMount() {

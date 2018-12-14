@@ -85,6 +85,7 @@ export default class Friends extends Component {
                 currentUser={this.props.currentUser}
                 getFriendOccasions={this.getFriendOccasions}
                 getUserOccasions={this.getUserOccasions}
+                findFriends={this.props.findFriends}
 
               />
               <FriendList
