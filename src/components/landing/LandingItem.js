@@ -22,8 +22,6 @@ export default class LandingItem extends Component {
     let gifts = this.props.occasionGifts.find(occasion =>
         occasion.id === this.props.friendOcc.id).gifts
 
-      console.log(gifts)
-
     return (
       <React.Fragment>
         <ListGroupItem className="landingListItem">

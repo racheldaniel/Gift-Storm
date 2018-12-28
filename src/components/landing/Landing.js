@@ -20,7 +20,7 @@ export default class Landing extends Component {
     return this.setState({ currentDate: moment(currentDate).format('l') })
   }
 
-  //this function will get all friend occasions, then change the date to reflect current or upcoming year depending on whether the date has already passed. Method to reset date pulled from the following post: https://stackoverflow.com/a/20409421
+
 
   getOccasionGifts = () => {
     return API.getData(`friend_occasions?_embed=gifts`)
@@ -31,7 +31,12 @@ export default class Landing extends Component {
 
 
 
-  //this function will get all friends for current user
+  /*
+  this function will get all friend occasions, then change the date to reflect current or upcoming year depending on whether the date has already passed. Method to reset date pulled from the following post: https://stackoverflow.com/a/20409421
+
+  The function then sets state with both friend occasions and friends, which still have occasions embedded. API calls need to be drier, but work for now.
+  */
+
   getFriendOccasions = (currentUser) => {
     return API.getData(`friends?userId=${currentUser}&_embed=friend_occasions`)
       .then((friends) => {
@@ -62,9 +67,13 @@ export default class Landing extends Component {
       .then((userOccasions) => this.setState({ userOccasions: userOccasions }))
   }
 
-  //function iterates over userOccasions and creates an array of friend occasions with the corresponding user_occasionId.
-  //It iterates over that new array and creates an object with a key of the user_occasionId and value of either complete, in progress, or null (depending on gifting status of all friend occasions for that user Occ).
-  //Those objects are pushed into an array, which is used to set state. This will be used for icon generation in LandingItem
+  /*
+  function iterates over userOccasions and creates an array of friend occasions with the corresponding user_occasionId.
+
+  It iterates over that new array and creates an object with a key of the user_occasionId and value of either complete, in progress, or null (depending on gifting status of all friend occasions for that user Occ).
+
+  Those objects are pushed into an array, which is used to set state. This will be used for icon generation in LandingItem
+  */
 
   setUserOccasionState = () => {
     let statuses = []

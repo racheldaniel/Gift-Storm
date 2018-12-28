@@ -39,7 +39,6 @@ export default class EditGiftForm extends Component {
     ).id
     let friendId = this.props.friend.id
     let friend_occasionId
-    console.log(userOccId, friendId, this.props.friendOccGifts)
     this.props.friendOccGifts.forEach((occ) => {
       if (occ.user_occasionId === userOccId && occ.friendId === friendId) {
         friend_occasionId = occ.id
@@ -52,8 +51,6 @@ export default class EditGiftForm extends Component {
     return this.props.savePurchasedGift(obj)
       .then(() => this.props.findFriendGiftIdeas())
       .then(() => this.props.findFriendGifts())
-
-
   }
 
   //function toggles the purchased state

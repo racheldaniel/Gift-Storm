@@ -32,8 +32,7 @@ export default class Occasion extends Component {
               <h1 className="text-center text-info my-5">{`${userOcc.occasion.name} Gift List`}</h1>
               <h4 className="text-center text-info my-3">{moment(userOcc.occasion.date).format("MMMM Do")}</h4>
               <OccasionList
-                friends={this.props.friends}
-                userOccasions={this.props.userOccasions}
+                {...this.props}
                 userOcc={userOcc}
                 friendOccasions={this.state.friendOccasions}
               />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Col, FormGroup, Label, Input } from 'reactstrap';
+import moment from "moment"
 
 
 export default class EditFormTracked extends Component {
@@ -12,7 +13,7 @@ export default class EditFormTracked extends Component {
         <Row>
           <Col sm={8}>
             <ListGroupItemHeading>{userOcc.occasion.name}</ListGroupItemHeading>
-            <ListGroupItemText> {this.props.friendOcc.date}
+            <ListGroupItemText> {moment(this.props.friendOcc.date).format("MMMM Do")}
             </ListGroupItemText>
           </Col>
           <Col sm={4}>

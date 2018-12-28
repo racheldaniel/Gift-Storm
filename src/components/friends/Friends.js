@@ -31,11 +31,32 @@ export default class Friends extends Component {
     })
   }
 
-  //this function will get all friends with their occasions embedded and set state in this component
-  getFriendOccasions = (currentUser) => {
-    return API.getData(`friends?userId=${currentUser}&_embed=friend_occasions`)
-      .then((friendOccasions) => this.setState({ friendOccasions: friendOccasions, isLoaded: true }))
-  }
+
+  /*
+  this function will get all friend occasions, then change the date to reflect current or upcoming year depending on whether the date has already passed. Method to reset date pulled from the following post: https://stackoverflow.com/a/20409421
+
+  The function then sets state with both friend occasions and isLoaded
+  */
+
+ getFriendOccasions = (currentUser) => {
+  return API.getData(`friends?userId=${currentUser}&_embed=friend_occasions`)
+    .then((friends) => {
+      friends.forEach((friend) => {
+        friend.friend_occasions.forEach((friendOcc) => {
+          let date = friendOcc.date.split("-")
+          let currentYear = new Date().getFullYear()
+          let newDate = new Date(currentYear, date[1] - 1, date[2])
+          let today = new Date().valueOf()
+          if(newDate.valueOf() < today){
+            newDate.setFullYear(currentYear + 1)
+          }
+          friendOcc.date = newDate
+        })
+        friend.friend_occasions.sort((a, b) => a.date - b.date)
+      })
+      this.setState({ friendOccasions: friends, isLoaded: true })
+    })
+}
 
 
   //this function will get all user occasions expanded with the occasion details , then set state in this component
