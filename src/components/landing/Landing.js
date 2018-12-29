@@ -112,7 +112,7 @@ export default class Landing extends Component {
     this.state.friendOccasions.forEach((friendOcc) => {
       let count = 0
       let userOcc = this.state.userOccasions.find(occ =>
-        occ.occasionId === friendOcc.user_occasionId
+        occ.id === friendOcc.user_occasionId
       )
       uniqueOccasions.forEach((unique) => {
         if (unique.user_occasionId === friendOcc.user_occasionId && userOcc.occasion.groupHoliday === "1") {

@@ -11,9 +11,9 @@ export default class AllOccasions extends Component {
   }
 
 
-  // componentDidMount() {
-  //   this.getFriendOccasions(this.props.currentUser)
-  // }
+  componentDidMount() {
+    this.props.getUserOccasions(this.props.currentUser)
+  }
 
   render() {
 

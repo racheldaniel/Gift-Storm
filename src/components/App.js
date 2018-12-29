@@ -86,6 +86,7 @@ export default class App extends Component {
               currentUser={this.props.currentUser}
               friends={this.state.friends}
               userOccasions={this.state.userOccasions}
+              getUserOccasions={this.getUserOccasions}
             />
           } else {
             return null
