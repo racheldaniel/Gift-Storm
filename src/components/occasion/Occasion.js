@@ -24,13 +24,19 @@ export default class Occasion extends Component {
   render() {
     const userOcc = this.props.userOccasions.find(a => a.id === parseInt(this.props.match.params.user_occasionId)) || {}
 
+
     return (
       <React.Fragment>
         {
           (this.state.isLoaded === true)
             ? <Container>
               <h1 className="text-center text-info my-5">{`${userOcc.occasion.name} Gift List`}</h1>
-              <h4 className="text-center text-info my-3">{moment(userOcc.occasion.date).format("MMMM Do")}</h4>
+              {
+                (userOcc.occasion.groupHoliday === "1")
+                ?<h4 className="text-center text-info my-3">{moment(userOcc.occasion.date).format("MMMM Do")}</h4>
+                : null
+              }
+
               <OccasionList
                 {...this.props}
                 userOcc={userOcc}
