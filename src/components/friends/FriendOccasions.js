@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ListGroupItemText, Col } from 'reactstrap';
 import moment from 'moment'
+import "./Friends.css"
 
 export default class FriendOccasions extends Component {
 
@@ -12,7 +13,7 @@ export default class FriendOccasions extends Component {
     return (
       <React.Fragment>
         <Col className="text-center" >
-          <img src={userOcc.occasion.img}
+          <img className="occIcon" src={userOcc.occasion.imgLg}
 
           alt={userOcc.occasion.name} />
           <h5>{userOcc.occasion.name}</h5>

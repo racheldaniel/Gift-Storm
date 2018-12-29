@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { ListGroupItem, ListGroupItemHeading, Row, Col } from 'reactstrap';
 import inProgress from "./../../images/inProgress.png"
 import complete from "./../../images/complete.png"
+import noGifts from "./../../images/noGifts.png"
 import moment from 'moment'
 
 export default class LandingItem extends Component {
@@ -27,7 +28,7 @@ export default class LandingItem extends Component {
         <ListGroupItem className="landingListItem">
           <Row>
             <Col xs={2} className="d-flex align-items-center  my-auto">
-              <img src={userOcc.occasion.img} alt={userOcc.occasion.name} />
+              <img className="occIcon" src={userOcc.occasion.imgLg} alt={userOcc.occasion.name} />
             </Col>
             <Col xs={4} className="d-flex align-items-center text-center">
               {
@@ -48,7 +49,7 @@ export default class LandingItem extends Component {
                 : (userOcc.occasion.groupHoliday === "0" && this.props.friendOcc.giftStatus === 0 &&  gifts.length > 0)
                 ||(userOcc.occasion.groupHoliday === "1" && status[`${userOcc.id}`] === "inProgress")
                 ? <img src={inProgress} alt="inProgress"  />
-                : null
+                : <img src={noGifts} alt="noGifts"  />
               }
 
               {
