@@ -6,6 +6,7 @@ import complete from "./../../images/complete.png"
 import noGifts from "./../../images/noGifts.png"
 import moment from 'moment'
 
+
 export default class LandingItem extends Component {
   render() {
     let userOcc = this.props.userOccasions.find(occ =>
@@ -30,14 +31,14 @@ export default class LandingItem extends Component {
             <Col xs={2} className="d-flex align-items-center  my-auto">
               <img className="occIcon" src={userOcc.occasion.imgLg} alt={userOcc.occasion.name} />
             </Col>
-            <Col xs={4} className="d-flex align-items-center text-center">
+            <Col xs={5} className="d-flex align-items-center text-center">
               {
                 (userOcc.occasion.groupHoliday === "1")
                   ? <h2>{userOcc.occasion.name}</h2>
                   : <h2>{`${friend.name}'s ${userOcc.occasion.name}`}</h2>
               }
             </Col>
-            <Col xs={3} className="d-flex align-items-center text-center" >
+            <Col xs={2} className="d-flex align-items-center text-center" >
 
               <ListGroupItemHeading>{moment(this.props.friendOcc.date).format("MMM Do")}</ListGroupItemHeading>
             </Col>

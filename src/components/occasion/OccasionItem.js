@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { ListGroupItem, ListGroupItemHeading, Row, Col, ListGroup } from 'reactstrap';
 import inProgress from "./../../images/inProgress.png"
 import complete from "./../../images/complete.png"
+import noGifts from "./../../images/noGifts.png"
 import OccasionGift from "./OccasionGift"
 import moment from "moment"
 
@@ -50,7 +51,7 @@ export default class OccasionItem extends Component {
                   ? <img src={complete} alt="complete" />
                   : (this.props.friendOcc.giftStatus === 0 && this.props.friendOcc.gifts.length > 0)
                     ? <img src={inProgress} alt="inProgress" />
-                    : null
+                    :<img src={noGifts} alt="noGifts" />
               }
               <Link className="nav-link" to={`/friends/${this.props.friendOcc.friendId}`}>Details</Link>
             </Col>
