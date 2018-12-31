@@ -13,10 +13,7 @@ export default class OccasionList extends Component{
           <OccasionItem
           key={friendOcc.id}
           friendOcc={friendOcc}
-          userOcc={this.props.userOcc}
-          friends={this.props.friends}
-          friendOccasions={this.props.friendOccasions}
-          userOccasions={this.props.userOccasions}
+          {...this.props}
           />
           )
       }

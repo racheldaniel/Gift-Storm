@@ -36,3 +36,17 @@
 #interest--head, #gift--head {
   opacity: 1
 }
+
+.allOccasions {
+  max-width: 80%;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  margin: 0 17em
+}
+
+.occasionCard {
+  margin: 10px;
+  border: 3px solid #01172F;
+  padding: 0 40px
+}

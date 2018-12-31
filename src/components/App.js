@@ -7,7 +7,7 @@ import FriendDetail from "./detail/Detail"
 import API from "./../modules/API/API"
 import Occasion from "./occasion/Occasion"
 import Profile from "./profile/Profile"
-
+import AllOccasions from "./occasion/AllOccasions"
 
 export default class App extends Component {
   state = {
@@ -75,6 +75,18 @@ export default class App extends Component {
               currentUser={this.props.currentUser}
               friends={this.state.friends}
               userOccasions={this.state.userOccasions}
+            />
+          } else {
+            return null
+          }
+        }} />
+        <Route exact path="/occasions" render={(props) => {
+          if (this.state.isLoaded === true) {
+            return <AllOccasions {...props}
+              currentUser={this.props.currentUser}
+              friends={this.state.friends}
+              userOccasions={this.state.userOccasions}
+              getUserOccasions={this.getUserOccasions}
             />
           } else {
             return null

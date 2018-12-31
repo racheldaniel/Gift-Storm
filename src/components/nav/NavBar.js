@@ -25,6 +25,9 @@ export default class NavBar extends Component {
             <NavItem>
               <NavLink tag={Link} to="/profile" className="text-dark">Profile</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/occasions" className="text-dark">Occasions</NavLink>
+            </NavItem>
             <NavItem className="float-right">
               <NavLink tag={Link} onClick={() => { userSession.logOutUser() }} to="/"><Button color="primary">Logout</Button></NavLink>
             </NavItem>
