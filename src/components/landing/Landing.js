@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
+import { Container, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import LandingList from "./LandingList"
 import "./Landing.css"
 import API from "./../../modules/API/API"
@@ -12,7 +12,9 @@ export default class Landing extends Component {
     userOccasions: [],
     isLoaded: false,
     uniqueFriendOccs: [],
-    currentDate: ""
+    currentDate: "",
+    dropdownOpen: false,
+    dropdownValue: "Filter"
   }
 
   setCurrentDate = () => {
@@ -29,6 +31,10 @@ export default class Landing extends Component {
       )
   }
 
+  //function controlling filter dropdown
+  toggle = () => {
+    this.setState({ dropdownOpen: !this.state.dropdownOpen })
+  }
 
 
   /*
@@ -46,12 +52,12 @@ export default class Landing extends Component {
             friendOccasions.push(friendOcc)
           })
         })
-        friendOccasions.forEach((friendOcc)=> {
+        friendOccasions.forEach((friendOcc) => {
           let date = friendOcc.date.split("-")
           let currentYear = new Date().getFullYear()
           let newDate = new Date(currentYear, date[1] - 1, date[2])
           let today = new Date().valueOf()
-          if(newDate.valueOf() < today){
+          if (newDate.valueOf() < today) {
             newDate.setFullYear(currentYear + 1)
           }
           friendOcc.date = newDate
@@ -65,6 +71,11 @@ export default class Landing extends Component {
   getUserOccasions = (currentUser) => {
     return API.getData(`user_occasions?userId=${currentUser}&_expand=occasion`)
       .then((userOccasions) => this.setState({ userOccasions: userOccasions }))
+  }
+
+  //function to display selected filter as dropdown heading
+  changeValue = (e) => {
+    this.setState({ dropdownValue: e.currentTarget.textContent })
   }
 
   /*
@@ -87,13 +98,13 @@ export default class Landing extends Component {
       )
       friendOccs.forEach((friendOcc) => {
         count += friendOcc.gifts.length
-        if (friendOcc.giftStatus === 0){
+        if (friendOcc.giftStatus === 0) {
           complete = false
         }
       })
-      if(complete === true){
+      if (complete === true) {
         obj[userOcc.id] = "complete"
-      } else if (complete === false && count > 0){
+      } else if (complete === false && count > 0) {
         obj[userOcc.id] = "inProgress"
       } else {
         obj[userOcc.id] = "none"
@@ -102,7 +113,7 @@ export default class Landing extends Component {
 
     })
 
-    return this.setState({statuses: statuses})
+    return this.setState({ statuses: statuses })
   }
 
 
@@ -144,13 +155,29 @@ export default class Landing extends Component {
           (this.state.isLoaded === true)
             ? <Container>
               <h1 className="text-center text-info my-5">Upcoming Celebrations</h1>
+              <Dropdown
+                className="text-right text-info filterBtn"
+                isOpen={this.state.dropdownOpen}
+                toggle={this.toggle}
+                >
+                <DropdownToggle color="danger" caret>
+                  {this.state.dropdownValue}
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={this.changeValue}>Giftless</DropdownItem>
+                  <DropdownItem onClick={this.changeValue}>In Progress</DropdownItem>
+                  <DropdownItem onClick={this.changeValue}>Complete</DropdownItem>
+                  <DropdownItem onClick={this.changeValue}>All</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
               <LandingList
                 occasionGifts={this.state.occasionGifts}
                 friendOccasions={this.state.friendOccasions}
-                friends= {this.state.friends}
+                friends={this.state.friends}
                 uniqueFriendOccs={this.state.uniqueFriendOccs}
                 userOccasions={this.state.userOccasions}
                 statuses={this.state.statuses}
+                dropdownValue={this.state.dropdownValue}
               />
             </Container>
             : null
