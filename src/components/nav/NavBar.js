@@ -52,7 +52,7 @@ export default class NavBar extends Component {
                   <DropdownToggle nav caret className="text-dark">
                     {this.props.userName}
                   </DropdownToggle>
-                  <DropdownMenu>
+                  <DropdownMenu id="dropdown">
                     <DropdownItem>
                       <NavLink tag={Link} to="/profile" className="text-dark">Profile</NavLink>
                     </DropdownItem>

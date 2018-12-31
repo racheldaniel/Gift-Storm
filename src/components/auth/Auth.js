@@ -22,7 +22,6 @@ export default class Auth extends Component {
       const currentUser = userSession.getUser()
       if (currentUser){
         API.getData(`users/?id=${currentUser}`).then((user)=>{
-          console.log(user)
           this.setState({auth: true, currentUser: currentUser, userName: user[0].displayName }, ()=> resolve())
         })
 
