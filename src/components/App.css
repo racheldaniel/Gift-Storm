@@ -24,5 +24,12 @@
  }
 
  i {
-   cursor: pointer;
+   cursor: pointer
  }
+
+
+
+.occIcon {
+  max-width: 125px;
+  padding-bottom: 25px
+}

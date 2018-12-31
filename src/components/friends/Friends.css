@@ -9,5 +9,6 @@
 } */
 
 .occIcon {
-  max-width: 100px;
+  max-width: 125px;
+  padding-bottom: 25px
 }

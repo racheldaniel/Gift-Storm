@@ -18,7 +18,7 @@ export default class DetailCelebrations extends Component {
         <ListGroupItem className="landingListItem" >
           <Row>
             <Col xs={2} className="d-flex align-items-center">
-              <img src={userOcc.occasion.img} alt={userOcc.occasion.name} />
+              <img className="occIcon" src={userOcc.occasion.imgLg} alt={userOcc.occasion.name} />
             </Col>
             <Col xs={3} className="d-flex align-items-center">
               {
