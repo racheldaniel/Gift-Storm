@@ -16,6 +16,10 @@ The app is simple and user-friendly, styled with ReactStrap and Bootstrap CSS fr
 
 <img src="./readme_imgs/css3-plain-wordmark.svg" alt="CSS3" width="50px" height="50px">   <img src="./readme_imgs/html5-plain-wordmark.svg" alt="HTML5" width="50px" height="50px">   <img src="./readme_imgs/javascript-original.svg" alt="JS" width="50px" height="50px">   <img src="./readme_imgs/react-original.svg" alt="React" width="50px" height="50px">   <img src="./readme_imgs/bootstrap-plain.svg" alt="Boostrap" width="50px" height="50px">   <img src="./readme_imgs/npm-original-wordmark.svg" alt="NPM" width="50px" height="50px">   <img src="./readme_imgs/visualstudio-plain.svg" alt="NPM" width="50px" height="50px">
 
+## ERD
+<img src="./readme_imgs/GiftStorm_ERD.png" alt="ERD" > 
+
+
 ## Install and Begin Brainstorming
 
 Clone the app by running the following command in your terminal:
@@ -640,5 +644,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 To view demo data, log in with user@gmail.com, password "a". To customize the app with your family and friend data, create a new user/password.
 
 Happy Brainstorming!
-
 
