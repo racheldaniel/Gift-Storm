@@ -30,14 +30,34 @@ export default class FriendDetail extends Component {
     editPurchasedModal: false,
     giftModal: false
   }
-  //function fetches this friend's occasions and corresponding gifts with user-occasion entity embedded. This can be used to find image from occasion array
+  /*
+  function fetches this friend's occasions and corresponding gifts with user-occasion entity embedded. It then changes the date to reflect current or upcoming year depending on whether the date has already passed. Method to reset date pulled from the following post: https://stackoverflow.com/a/20409421
+
+  This array is used for render of celebrations on friend detail page
+  */
+
+
   findFriendGifts = () => {
     const friend = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)) || {}
+
     return API.getData(`friend_occasions?friendId=${friend.id}&_embed=gifts`)
-      .then((friendOccGifts) => this.setState({ friendOccGifts: friendOccGifts, isLoaded: true }))
+      .then((friendOccGifts) => {
+        friendOccGifts.forEach((friendOcc) => {
+          let date = friendOcc.date.split("-")
+          let currentYear = new Date().getFullYear()
+          let newDate = new Date(currentYear, date[1] - 1, date[2])
+          let today = new Date().valueOf()
+          if(newDate.valueOf() < today){
+            newDate.setFullYear(currentYear + 1)
+          }
+          friendOcc.date = newDate
+        })
+        friendOccGifts.sort((a, b) => a.date - b.date)
+        this.setState({ friendOccGifts: friendOccGifts, isLoaded: true })
+      })
   }
 
-  //function fetches friend data
+  //function fetches friend data and sets state
   findFriend = () => {
     const friend = this.props.friends.find(a => a.id === parseInt(this.props.match.params.friendId)) || {}
     return API.getData(`friends?id=${friend.id}`)

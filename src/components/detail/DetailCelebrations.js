@@ -58,8 +58,8 @@ export default class DetailCelebrations extends Component {
                     ? <img src={inProgress} alt="inProgress" />
                     : <img src={noGifts} alt="inProgress" />
               }
-              <FormGroup check >
-                <Label check>
+              <FormGroup check className="checkBox">
+                <Label check >
                   <Input type="checkbox" onClick={() => this.props.toggleGiftStatus(this.props.friendOcc.giftStatus, this.props.friendOcc.id)}
                     defaultChecked=
                     {
