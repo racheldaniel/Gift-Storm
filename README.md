@@ -10,7 +10,7 @@ GiftStorm uses Moment.js to display the closest upcoming celebrations to the use
 
 The app is simple and user-friendly, styled with ReactStrap and Bootstrap CSS frameworks.
 
-
+<img src="./readme_imgs/landing.png" alt="landing" height="225px">   <img src="./readme_imgs/Friends.png" alt="friends" height="225px"> <img src="./readme_imgs/Details.png" alt="details" height="225px"> <img src="./readme_imgs/Celebration_Detail.png" alt="Celebration details" height="225px"> 
 
 ## Technologies Used
 
@@ -632,9 +632,9 @@ Open <b>database.json</b> in your preferred editor and copy the following into t
   ]
 }
 ```
-### `npm start`
+When you're ready to run the app:
+``` npm start ``` 
 
-Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 To view demo data, log in with user@gmail.com, password "a". To customize the app with your family and friend data, create a new user/password.
