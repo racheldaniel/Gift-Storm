@@ -88,19 +88,22 @@ export default class Landing extends Component {
 
   setUserOccasionState = () => {
     let statuses = []
-    let complete = true
+
     this.state.userOccasions.forEach((userOcc) => {
       let count = 0
       let obj = {}
+      let complete = true
 
       let friendOccs = this.state.occasionGifts.filter(friendOcc =>
         friendOcc.user_occasionId === userOcc.id
       )
+
       friendOccs.forEach((friendOcc) => {
         count += friendOcc.gifts.length
         if (friendOcc.giftStatus === 0) {
           complete = false
         }
+        console.log(friendOcc, friendOcc.giftStatus, complete)
       })
       if (complete === true) {
         obj[userOcc.id] = "complete"
@@ -109,6 +112,7 @@ export default class Landing extends Component {
       } else {
         obj[userOcc.id] = "none"
       }
+      console.log(userOcc, friendOccs, obj)
       statuses.push(obj)
 
     })

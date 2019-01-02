@@ -27,6 +27,7 @@ export default class LandingItem extends Component {
     let finalStatus
 
     let getStatus = () => {
+
       if ((userOcc.occasion.groupHoliday === "0" && this.props.friendOcc.giftStatus === 1)
       || (userOcc.occasion.groupHoliday === "1" && prelimStatus[`${userOcc.id}`] === "complete")){
         return finalStatus= "complete"

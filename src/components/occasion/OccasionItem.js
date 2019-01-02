@@ -36,7 +36,7 @@ export default class OccasionItem extends Component {
             <ListGroupItem className="landingListItem">
               <Row>
                 <Col xs={2} className="d-flex align-items-center  my-auto">
-                  <img src={this.props.userOcc.occasion.img} alt={this.props.userOcc.occasion.name} />
+                  <img className="occIcon" src={this.props.userOcc.occasion.imgLg} alt={this.props.userOcc.occasion.name} />
                 </Col>
                 {
                   (this.props.userOcc.occasion.groupHoliday === "1")

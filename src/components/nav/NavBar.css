@@ -4,6 +4,18 @@
   width: 100%;
   z-index: 3;
   border: 1px solid #01172F
+}
 
+#mainNav {
+  display: flex;
+  flex-direction: row;
+  margin-left: 500px
+}
 
+#secNav {
+  margin-left: 300px
+}
+
+#dropdown {
+  background-color: #BFACAA
 }

@@ -7,7 +7,7 @@ export default class GiftStorm extends Component {
   render() {
       return (
           <React.Fragment>
-              <NavBar />
+              <NavBar userName={this.props.userName}/>
               <App currentUser={this.props.currentUser}/>
           </React.Fragment>
       )
