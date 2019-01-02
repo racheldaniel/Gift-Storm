@@ -637,7 +637,11 @@ Open <b>database.json</b> in your preferred editor and copy the following into t
 }
 ```
 When you're ready to run the app:
-``` npm start ``` 
+``` 
+npm start 
+cd api 
+json-server -p 8088 -w database.json
+```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
