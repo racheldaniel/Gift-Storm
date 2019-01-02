@@ -103,7 +103,6 @@ export default class Landing extends Component {
         if (friendOcc.giftStatus === 0) {
           complete = false
         }
-        console.log(friendOcc, friendOcc.giftStatus, complete)
       })
       if (complete === true) {
         obj[userOcc.id] = "complete"
@@ -112,9 +111,7 @@ export default class Landing extends Component {
       } else {
         obj[userOcc.id] = "none"
       }
-      console.log(userOcc, friendOccs, obj)
       statuses.push(obj)
-
     })
 
     return this.setState({ statuses: statuses })
