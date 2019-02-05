@@ -10,7 +10,7 @@ GiftStorm uses Moment.js to display the closest upcoming celebrations to the use
 
 The app is simple and user-friendly, styled with ReactStrap and Bootstrap CSS frameworks.
 
-<img src="./readme_imgs/landing.png" alt="landing" height="225px">   <img src="./readme_imgs/Friends.png" alt="friends" height="225px"> <img src="./readme_imgs/Details.png" alt="details" height="225px"> <img src="./readme_imgs/Celebration_Detail.png" alt="Celebration details" height="225px"> 
+<img src="./readme_imgs/gift-storm.gif" alt="landing" height="400px">
 
 ## Technologies Used
 
